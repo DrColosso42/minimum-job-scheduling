@@ -233,6 +233,17 @@ def local_search(instance, sequence, firstimprov=False):
 
     return best_score, best_sequence
 
+#LOCAL SEARCH with BUDGET
+def local_search_budget(instance, sequence, budget=100000):
+    start = decode.calls
+    best_score, best_seq = local_search(instance,sequence)
+    while decode.calls - start < budget:
+        s = random.sample(sequence, len(sequence))
+        value, seq = local_search(instance,s)
+        if value < best_score:
+            best_score, best_seq = value, seq
+    return best_score, best_seq
+
 # SIMULATED ANNEALING
 def simulated_annealing(instance, sequence, budget = 100000):
     start = decode.calls
@@ -367,4 +378,4 @@ def genetic_algorithm(instance, sequence, budget=100000,population_size=50, p = 
         if(current_scores[0][1] < best_seen[1]):
             best_seen = current_scores[0]
 
-    return best_seen[0], best_seen[1]
+    return best_seen[1], best_seen[0]

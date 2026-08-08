@@ -157,22 +157,17 @@ def neighbors(sequence):
 
 
 def get_random_neighbor(sequence, inplace=False):
-    different = False
-    while not different:
+    while True:
         i= random.randrange(0,len(sequence))
         j= random.randrange(0,len(sequence))
 
-        if(sequence[i] != sequence[j]):
-            if not inplace:
-                tmp_seq = list(sequence)
-            else:
-                tmp_seq = sequence
-            return replace_in_seq(tmp_seq,i,j, inplace=inplace)
+        if sequence[i] != sequence[j] :   
+            return replace_in_seq(sequence,i,j, inplace=inplace)
 
 def shake(seq, k):
     tmp_seq = list(seq)
     for _ in range(k):
-        get_random_neighbor(tmp_seq, inplace=True)
+        tmp_seq = get_random_neighbor(tmp_seq)
     return tmp_seq
 
 
@@ -239,15 +234,16 @@ def local_search(instance, sequence, firstimprov=False):
     return best_score, best_sequence
 
 # SIMULATED ANNEALING
-def simulated_annealing(instance, sequence, iters = 1000):
+def simulated_annealing(instance, sequence, budget = 100000):
+    start = decode.calls
     best_sequence = list(sequence)
     best_score = decode(instance, sequence)
     T = 20
-    alpha = (0.001/T)**(1/iters)
+    alpha = (0.001/T)**(1/budget)
 
     current = sequence
     current_value = decode(instance,sequence)
-    for i in range(iters):
+    while decode.calls - start < budget:
 
         neighbor = get_random_neighbor(current)
 
@@ -372,4 +368,3 @@ def genetic_algorithm(instance, sequence, budget=100000,population_size=50, p = 
             best_seen = current_scores[0]
 
     return best_seen[0], best_seen[1]
-    

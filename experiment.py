@@ -25,11 +25,11 @@ METHODS = {
     "ga": genetic_algorithm
 }
 
-BUDGET = 20_000
-REPEATS = 2
+BUDGET = 200_000
+REPEATS = 30
 BASE_PATH = pathlib.Path(__file__).parent
 DATA_PATH = BASE_PATH / "data"
-INSTANCES = INSTANCES[:2]
+# INSTANCES = INSTANCES[]
 
 
 

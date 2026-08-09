@@ -209,23 +209,28 @@ def brute_force(instance):
     return best_makespan, best_sequence
 
 
-# LOCAL SEARCH 
-def local_search(instance, sequence, firstimprov=False):
+# LOCAL SEARCH
+def local_search(instance, sequence, firstimprov=False, budget=None, start=None):
     best_score = decode(instance,sequence)
     best_sequence = list(sequence)
 
     stalled = False
     while not stalled:
+        if budget is not None and decode.calls - start >= budget:
+            break
         stalled = True
         for neighbor in neighbors(sequence):
 
             value = decode(instance, neighbor)
 
+            if budget is not None and decode.calls - start >= budget:
+                stalled = True
+                break
 
             if value < best_score:
                 best_score = value
                 best_sequence = neighbor
-                stalled = False 
+                stalled = False
                 if firstimprov:
                     break
 
@@ -236,10 +241,10 @@ def local_search(instance, sequence, firstimprov=False):
 #LOCAL SEARCH with BUDGET
 def local_search_budget(instance, sequence, budget=100000):
     start = decode.calls
-    best_score, best_seq = local_search(instance,sequence)
+    best_score, best_seq = local_search(instance, sequence, budget=budget, start=start)
     while decode.calls - start < budget:
         s = random.sample(sequence, len(sequence))
-        value, seq = local_search(instance,s)
+        value, seq = local_search(instance, s, budget=budget, start=start)
         if value < best_score:
             best_score, best_seq = value, seq
     return best_score, best_seq
@@ -292,7 +297,8 @@ def vns(instance, sequence, kmax=10, budget=1000):
         k = 1
         while k < kmax and decode.calls - start < budget:
             neigbor = shake(current,k)
-            value, seq_ret = local_search(instance,neigbor, firstimprov=True)
+            value, seq_ret = local_search(instance, neigbor, firstimprov=True,
+                                          budget=budget, start=start)
             if value < best_score:
                 best_score = value
                 best_seq = seq_ret

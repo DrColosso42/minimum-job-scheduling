@@ -263,6 +263,7 @@ def simulated_annealing(instance, sequence, budget = 100000):
 
         neighbor = get_random_neighbor(current)
 
+        T *= alpha
         value = decode(instance,neighbor)
 
         if value < current_value:
@@ -276,7 +277,6 @@ def simulated_annealing(instance, sequence, budget = 100000):
         else:
             delta = abs(current_value-value)
 
-            T *= alpha
             p = math.e ** (- delta / T )
             if random.random() < p:
                 current = neighbor
@@ -363,8 +363,8 @@ def genetic_algorithm(instance, sequence, budget=100000,population_size=50, p = 
         next_generation = list(current_scores[:ELITISM])
 
         for i in range(ELITISM, len(current_scores), 2):
-            p1 = select_parent(random.sample(current_scores[ELITISM:],TOUR_SIZE))
-            p2 = select_parent(random.sample(current_scores[ELITISM:],TOUR_SIZE))
+            p1 = select_parent(random.sample(current_scores,TOUR_SIZE))
+            p2 = select_parent(random.sample(current_scores,TOUR_SIZE))
 
             c1 = crossover(p1[0],p2[0])
             c2 = crossover(p1[0],p2[0])

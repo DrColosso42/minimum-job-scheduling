@@ -1,7 +1,0 @@
-instance,improvement,decode_calls_per_descent,mean_makespan,runs
-ft06,best,2647,59.4,10
-ft06,first,1330,59.7,10
-ft10,best,57601,1103.8,10
-ft10,first,39215,1075.0,10
-ft20,best,104026,1317.2,10
-ft20,first,48290,1313.8,10

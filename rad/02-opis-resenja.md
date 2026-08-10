@@ -128,7 +128,7 @@ odnosno dužina kritičnog puta jednaka je vrednosti funkcije cilja.
 
 ### Značaj
 
-Neposredna posledica prethodne jednakosti jeste da se $C_{max}$ može smanjiti **isključivo** promenom koja utiče na neku od operacija sa kritičnog puta. Operacije van puta nemaju uticaj na ukupnu dužinu puta i mogu se proizvoljno pomerati.^[Vredi napomenuti da je operacije van kritičnog puta moguće izmestiti tako da _produže_ ukupno vreme trajanja i time pogoršaju ukupni rezultat. Ipak, u tom slučaju bi se i one same našle na kritičnom putu.]
+Neposredna posledica prethodne jednakosti jeste da se $C_{max}$ može smanjiti **isključivo** promenom koja utiče na neku od operacija sa kritičnog puta. Operacije van puta nemaju uticaj na ukupnu dužinu puta i mogu se proizvoljno pomerati dokle god ostaju van kritičnog puta.^[Vredi napomenuti da je operacije van kritičnog puta moguće izmestiti tako da _produže_ ukupno vreme trajanja i time pogoršaju ukupni rezultat. Ipak, u tom slučaju bi se i one same našle na kritičnom putu.]
 
 Ovo nosi značajan uvid pri formiranju okoline neke tačke. Naime, smisleno je razmatrati samo one okoline koje menjaju kritični put. Taj postupak opisan je u odeljku o okolinama.
 
@@ -165,11 +165,11 @@ je jednako vrednosti $C_{max}$.\label{tbl:kriticni}
 ![Raspored dobijen dekodiranjem niza $(J_1, J_2, J_2, J_3, J_1, J_2, J_3, J_1, J_3)$
 nad instancom `mini3`. Šrafirane su operacije koje pripadaju kritičnom putu. \label{sl:kriticni}](slike/mini3_critical_path.png){width=95%}
 
-Primetimo da na slici \ref{sl:kriticni} treća operacija $J_2$ može biti pomerena za jednu jedinicu vremena unapred bez uticaja na optimalnost rešenja. Slično, operacije koje se izvršavaju na mašini $M_2$ mogu biti u potpunosti ispremeštane sve dok pošutuju uslov dovršavanja prethodnih instrukcija svojih poslova.
+Primetimo da na slici \ref{sl:kriticni} treća operacija $J_2$ može biti pomerena za jednu jedinicu vremena unapred bez uticaja na optimalnost rešenja. Slično, operacije koje se izvršavaju na mašini $M_2$ mogu biti u potpunosti ispremeštane sve dok poštuju uslov dovršavanja prethodnih instrukcija svojih poslova.
 
 ## Donja granica
 
-Vrednost koju metoda pronađe sama po sebi ne daje nam informaciju o kvalitetu datog rešenja. Kako bismo mogli to da utvrdimo potrebno je da imamo informaciju o dokazanom optimumu (ukoliko je instanca problema formalno rešiva^[U razumnom vremenu]) sa kojim bismo uporedili ovaj rezultat. Druga mogućnost jeste da nekako izračunamo donju granicu rešenja, odnosno vrednost za koju možemo da tvrdimo da je nužno manja od optimalnog rešenja. Što veću takvu vrednost nađemo to nam je procena verodostojnija i korisnija u analizi metoda optimizacije.
+Vrednost koju metoda pronađe sama po sebi ne daje nam informaciju o kvalitetu datog rešenja. Kako bismo mogli to da utvrdimo potrebno je da imamo informaciju o dokazanom optimumu (ukoliko je instanca problema formalno rešiva^[U razumnom vremenu]) sa kojim bismo uporedili ovaj rezultat. Druga mogućnost jeste da nekako izračunamo donju granicu rešenja, odnosno vrednost za koju možemo da tvrdimo da je manja od ili jednaka optimalnom rešenju. Što veću takvu vrednost nađemo to nam je procena verodostojnija i korisnija u analizi metoda optimizacije.
 
 ### Dva trivijalna ograničenja
 
@@ -208,7 +208,7 @@ Koliko je manja, zavisi od instance:
 | `ft10`   |           655 |     930 |     29,6 % |
 
 : Odstupanje donje granice od poznatog optimuma, poređano po veličini
-odstupanja .\label{tbl:granice}
+odstupanja.\label{tbl:granice}
 
 Na instanci `ft10` granica je za skoro trećinu ispod optimuma i tu je praktično beskorisna. Na `la01` i `la05`, međutim, poklapa se sa optimumom.
 
@@ -216,7 +216,7 @@ Na instanci `ft10` granica je za skoro trećinu ispod optimuma i tu je praktičn
 
 Donja granica nam pored procene optimalnosti može dati i čvrst dokaz iste u određenim situacijama. Naime, ukoliko na instanci $I$ za koju važi donja granica $LB$, pronađemo raspored čija je vrednost $C_{max} = LB$ onda smo sigurni da je takav raspored optimalan. Po definiciji donje granice nijedan raspored ne može biti bolji od nje, pa je onaj čija je vrednost upravo ona sigurno najbolji mogući.
 
-Upravo zbog ove osobine dostizanje vrednosti 666 na instanic `la01`, odnosno 593 na `la05` dokazuje optimalnost istog.
+Upravo zbog ove osobine dostizanje vrednosti 666 na instanci `la01`, odnosno 593 na `la05` dokazuje optimalnost istog.
 
 ## Iscrpna pretraga
 
@@ -232,7 +232,7 @@ Nizovi se nabrajaju kao permutacije multiskupa, dakle bez ponavljanja istih rasp
 $$\frac{\left( \sum_{j} |J_j| \right)!}{\prod_{j} |J_j|!}.$$
 
 Nizovi se obrađuju jedan po jedan, bez čuvanja u memoriji, pa je prostorna složenost zanemarljiva. Vremenska složenost jednaka je proizvodu gornjeg izraza i cene jednog
-dekodiranja (u našem slučaju $O(L)$ gde je L dužina niza).
+dekodiranja (u našem slučaju $O(L)$ gde je $L$ dužina niza).
 
 ### Granica primenljivosti
 
@@ -254,26 +254,26 @@ $2{,}67 \cdot 10^{24}$; pri milion dekodiranja u sekundi obilazak bi trajao oko 
 
 Iscrpna pretraga primenjena je na instancu `mini3`, sa tri posla i tri mašine, kao i na dve još manje instance korišćene pri razvoju. Dobijeni optimum od 11 za `mini3` jedina je vrednost u ovom radu koja je **dokazana neposredno**, obilaskom celog prostora rešenja^[Kasnije će biti reči o rešavanju egzaktnim metodama putem rešavača CPLEX. Bez obzira na to, ovo predstavlja značajan rezultat i oslonac za ostatak rada imajući u vidu jednostavnost implementacije i sigurnost u dobijeno rešenje].
 
-Ta vrednost korišćena je kao provera ispravnosti dekodera i svih razvijenih metoda. Zaista, metoda koja na `mini3` ne dostiže 11 sadrži grešku, jer nijedna heuristika ne može biti lošija od tačnog odgovora na instanci ove veličine.
+Ta vrednost korišćena je kao provera ispravnosti dekodera i svih razvijenih metoda. Zaista, metoda koja na `mini3` ne dostiže 11 sadrži grešku, jer nijedna heuristika ne sme biti lošija od tačnog odgovora na instanci ove veličine.
 
 ## Okoline
 
-Svaka od metoda razvijenih u ovom radu (izuzev genetskog algoritma), prostor rešenja pretražuju počevši od dostavljene početne tačke i istražujući njenu neposrednu okolinu, tražeći (možda lokalno) optimalno rešenje. Zbog toga neophodno je definisati _okolinu_ određenog Birvirtovog niza na koju će se osloniti sve metaheuristike.
+Svaka od metoda razvijenih u ovom radu (izuzev genetskog algoritma), prostor rešenja pretražuje počevši od dostavljene početne tačke i istražujući njenu neposrednu okolinu, tražeći (možda lokalno) optimalno rešenje. Zbog toga neophodno je definisati _okolinu_ određenog Birvirtovog niza na koju će se osloniti sve metaheuristike.
 
 ### Zamena dva elementa
 
-Najjednostavnija okolina rasporeda u Birvirtovom zapisu može se dobiti **zamenom mesta** dvema instrukcijama u nizu. S obzirom da rezultat ovakve transformacije daje permutaciju početnog niza znamo da je taj raspored sigurno validan.
+Najjednostavnija okolina rasporeda u Birvirtovom zapisu može se dobiti **zamenom mesta** dvema operacijama u nizu. S obzirom da rezultat ovakve transformacije daje permutaciju početnog niza znamo da je taj raspored sigurno validan.
 
 Zamena dve iste oznake ne menja niz, pa se takvi parovi preskaču. Za niz dužine $L$ broj suseda je stoga najviše $\binom{L}{2}$, a u praksi manji za broj parova jednakih oznaka.
 Orijentacije radi, na instanci `ft06` to daje 540 suseda, a na `ft10` i `ft20` po 4500, odnosno 4750.
 
-Ovakva definicija okoline ne koristi nikakvo znanje o problemu. Ne služi se osobinom o kritičnom putu koju smo naveli ranije u radu i bira nasumičnu permutaciju dobijenu jednom zamenom. To je ujedno i glavna mana ovakve definicije okoline. Naravno, prednost se ogleda u jednostavnosti implementacije i ceni jednog generisanja koje se izvršava u konstantnom vremenu.
+Ovakva definicija okoline ne koristi nikakvo znanje o problemu. Ne služi se osobinom o kritičnom putu koju smo naveli ranije u radu i predstavlja skup permutacija dobijenih jednom zamenom. To je ujedno i glavna mana ovakve definicije okoline. Naravno, prednost se ogleda u jednostavnosti implementacije i ceni jednog generisanja koje se izvršava u konstantnom vremenu.
 
 ### Okolina po kritičnom putu
 
 Iz osobine kritičnog puta, izvedene ranije, sledi da izmena koja ne dira nijednu operaciju sa puta ne može smanjiti $C_{max}$. Prirodno je stoga razmatrati samo izmene koje ga dodiruju.
 
-Upravo tu osobinu koristi $N_1$ okolina koju su predložili Piter van Larhoven i saradnici [@vanlaarhoven1992], obuhvata
+Upravo tu osobinu koristi $N_1$ okolina koju su predložili Piter van Larhoven i saradnici [@vanlaarhoven1992]. Ona obuhvata
 zamene **susednih operacija na kritičnom putu koje se izvršavaju na istoj mašini**. Oba uslova su neophodna za uspešnost definicije ove okoline. Najpre susednost obezbeđuje da izmena utiče na kritičan put, a zajednička mašina obezbeđuje da je izmena validna (jer se redosled unutar posla ne sme menjati).
 
 Sužavanje prostora pretrage je znatno:
@@ -305,7 +305,7 @@ okolini.\label{tbl:poredjenje-okolina}
 
 Uzroci su razmotreni u odeljku o diskusiji rezultata.
 
-Zbog ovakvih rezultatima je u svim metodama razvijenim u ovom radu korišćena okolina zamene dva elementa, dok je $N_1$ implementirana i izmerena, ali nije ušla u konačan izbor.
+Zbog ovakvih rezultata je u svim metodama razvijenim u ovom radu korišćena okolina zamene dva elementa, dok je $N_1$ implementirana i izmerena, ali nije ušla u konačan izbor.
 
 ## Lokalna pretraga
 
@@ -343,7 +343,7 @@ modifikaciju datog algoritma tako da se trenutni korak prekida kod prvog boljeg 
 ali manje precizan.
 
 Na izabranim test primerima pokazalo se da daju slična rešenja, dok je metoda _prvog poboljšanja_ značajno jeftinija^[U odnosu na broj pozivanja funkcije dekodiranja].
-Zbog toga je pri eksperimentisanju korišćena upravo ta varijanta
+Varijanta najboljeg rešenja korišćena je prilikom nezavisnog testiranja lokalne pretrage, a u implementaciji metode promenljivih okolina korišćena je varijanta prvog poboljšanja.
 
 ### Višestruko pokretanje
 
@@ -377,8 +377,7 @@ $\Delta = w - v$, prelaz se prihvata sa verovatnoćom
 
 $$p = \begin{cases} 1, & \Delta < 0 \\[4pt] e^{-\Delta / T}, & \Delta \ge 0 \end{cases}$$
 
-Izraz je poznat kao _Metropolisov kriterijum_ [@metropolis1953]. Dakle verovatnoća
-da ćemo prihvatiti lošije rešenje obrnuto je srazmerna stepenu pogoršanja kako pretraga ne bi
+Izraz je poznat kao _Metropolisov kriterijum_ [@metropolis1953]. Dakle verovatnoća da ćemo prihvatiti lošije rešenje eksponencijalno opada pri većem stepenu pogoršanja kako pretraga ne bi
 otišla predaleko od poželjnog rešenja.
 
 Takođe, na početku pretrage, kada parametar $T$ ima visoku vrednost pretraga prihvata gotovo svaki prelaz,

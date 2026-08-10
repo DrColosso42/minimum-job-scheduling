@@ -278,11 +278,11 @@ zamene **susednih operacija na kritičnom putu koje se izvršavaju na istoj maš
 
 Sužavanje prostora pretrage je znatno:
 
-| instanca | zamena dva elementa | $N_1$ |       odnos |
-| -------- | ------------------: | ----: | ----------: |
-| `ft06`   |                 540 |   6,7 |  $81\times$ |
-| `ft10`   |                4500 |  17,4 | $259\times$ |
-| `ft20`   |                4750 |  31,6 | $150\times$ |
+| instanca | zamena dva elementa | $N_1$ |           odnos |
+| -------- | ------------------: | ----: | --------------: |
+| `ft06`   |                 540 |   6,7 |  $80{,}6\times$ |
+| `ft10`   |                4500 |  17,4 | $259{,}3\times$ |
+| `ft20`   |                4750 |  31,6 | $150{,}4\times$ |
 
 : Prosečan broj suseda po koraku, izmeren nad 200 slučajno izabranih
 nizova.\label{tbl:okoline}
@@ -306,3 +306,299 @@ okolini.\label{tbl:poredjenje-okolina}
 Uzroci su razmotreni u odeljku o diskusiji rezultata.
 
 Zbog ovakvih rezultatima je u svim metodama razvijenim u ovom radu korišćena okolina zamene dva elementa, dok je $N_1$ implementirana i izmerena, ali nije ušla u konačan izbor.
+
+## Lokalna pretraga
+
+Najjednostavnija metaheuristička pretraga jeste upravo lokalna pretraga. Ideja je jednostavna: pretragu započinjemo
+iz početne tačke (recimo nasumično zadat raspored), a zatim se krećemo u pravcu najboljeg suseda sve dok takav
+postupak donosi poboljšanje.
+
+### Postupak
+
+```
+ulaz:  instanca, početni niz s0
+izlaz: lokalni optimum
+
+  v <- dekodiraj(s)
+  ponavljaj
+      najbolji <- nijedan
+      za svakog suseda t iz okoline(s):
+          w <- dekodiraj(t)
+          ako je w < v:
+              v <- w
+              najbolji <- t
+      ako najbolji ne postoji: stani
+      s <- najbolji
+  vrati (v, s)
+```
+
+Postupak staje kada nijedan sused nije bolji od tekućeg rešenja. Dobijeno rešenje je
+_lokalni optimum_ u odnosu na izabranu okolinu.
+
+### Prvo naspram najboljeg poboljšanja
+
+Goreprikazana varijanta pretražuje celu okolinu trenutne tačke a zatim bira najboljeg suseda
+(_najbolje poboljšanje_). Postoje i druge varijante lokalne pretrage. Jedna od njih predstavlja
+modifikaciju datog algoritma tako da se trenutni korak prekida kod prvog boljeg suseda, čime je korak jeftiniji
+ali manje precizan.
+
+Na izabranim test primerima pokazalo se da daju slična rešenja, dok je metoda _prvog poboljšanja_ značajno jeftinija^[U odnosu na broj pozivanja funkcije dekodiranja].
+Zbog toga je pri eksperimentisanju korišćena upravo ta varijanta
+
+### Višestruko pokretanje
+
+S obzirom da je potrebno normalizovati heuristike po nekoj zajedničkoj skali kako bismo
+mogli da uporedimo njihove performanse pri uloženom istom trudu i resursima, potrebno je bilo i lokalnu
+pretragu prilagoditi tom uslovu. U opisanom obliku ona radi dok ne dođe do nekog optimuma u čijoj okolini
+nema pogodnije tačke što iziskuje različit trud u zavisnosti od početnog stanja.
+
+Metoda je prilagođena tako da pokreće više različitih instanci dok ne premaši dati budžet, što se najbolje
+može videti u kodu koji sledi.
+
+```
+  najbolje <- inf
+  dok budžet nije potrošen:
+      s <- slučajna permutacija
+      (v, s) <- lokalna_pretraga(instanca, s)
+      ako je v < najbolje:
+        najbolje <- v
+```
+
+## Simulirano kaljenje
+
+Simulirano kaljenje [@kirkpatrick1983] nadograđuje lokalnu pretragu tako što se **ponekad pomera
+u smeru pogoršanja**, nadajući se da će ga to odvesti ka optimalnijem rešenju u budućnosti. Verovatnoća
+prihvatanja zavisi od stepena pogoršanja i parametra $T$, koji se smanjuje tokom pretrage.
+
+### Kriterijum prihvatanja
+
+Ako prelaz sa tekućeg rešenja na suseda menja vrednost funkcije cilja za
+$\Delta = w - v$, prelaz se prihvata sa verovatnoćom
+
+$$p = \begin{cases} 1, & \Delta < 0 \\[4pt] e^{-\Delta / T}, & \Delta \ge 0 \end{cases}$$
+
+Izraz je poznat kao _Metropolisov kriterijum_ [@metropolis1953]. Dakle verovatnoća
+da ćemo prihvatiti lošije rešenje obrnuto je srazmerna stepenu pogoršanja kako pretraga ne bi
+otišla predaleko od poželjnog rešenja.
+
+Takođe, na početku pretrage, kada parametar $T$ ima visoku vrednost pretraga prihvata gotovo svaki prelaz,
+dok se usmerava ka sve boljem rešenju kako se budžet iscrpljuje.
+
+### Postupak
+
+```
+ulaz:  instanca, početni niz s, budžet B
+izlaz: najbolje viđeno rešenje
+
+  # inicijalizacija
+  tekuće <- s
+  v <- dekodiraj(s)
+  najbolje <- v
+  najbolji_niz <- s
+  T <- T0
+  alpha <- (Tk / T0)^(1/B)
+
+  dok budžet nije potrošen:
+      t <- nasumicna tacka iz okoline(tekuće)
+      w <- dekodiraj(t)
+      delta <- w - v
+      ako je delta < 0 ili slučajan_broj() < e^(-delta/T):
+          tekuće <- t
+          v <- w
+          ako je w < najbolje:
+              najbolje <- w
+              najbolji_niz <- t
+      T <- T * alpha
+  vrati (najbolje, najbolji_niz)
+```
+
+Vredno je naglasiti da je potrebno **posebno pamtiti najbolje viđeno rešenje**. Glavni razlog
+jeste upravo u konstrukciji samog algoritma pretrage, tj. u činjenici da prihvatamo i prelaske u lošija stanja, čime
+se gubi garancija da je poslednji potez zaista video najbolje rešenje.
+
+## Metoda promenljivih okolina
+
+Metoda promenljivih okolina [@mladenovic1997] preduzima drugačiju strategiju kako bi umakla
+lokalnim optimumima. Naime, koristi se koncept **protresanja**, koji podrazumeva inkrementalno
+pomeranje od trenutnog rešenja za sve veću udaljenost sve dok to pomeranje ne donese poboljšanje.
+
+### Niz okolina
+
+Definiše se niz okolina $N_1 \subset N_2 \subset \dots \subset N_{k_{max}}$, gde $N_k$
+obuhvata nizove koji se od tekućeg razlikuju za $k$ uzastopnih zamena. Veće $k$ znači
+veću udaljenost od tekućeg rešenja.
+
+### Postupak
+
+```
+ulaz:  instanca, početni niz s, budžet B, kmax
+izlaz: najbolje viđeno rešenje
+
+  tekuće <- s
+  najbolje <- dekodiraj(s)
+
+  dok budžet nije potrošen:
+      k <- 1
+      dok je k < kmax i budžet nije potrošen:
+          t <- protresi(tekuće, k)
+          (w, t') <- lokalna_pretraga(instanca, t)
+          ako je w < najbolje:
+              najbolje <- w
+              tekuće <- t'
+              k <- 1
+          inače:
+              k <- k + 1
+  vrati najbolje
+```
+
+Primetimo da protresanje bira **nasumičnu** tačku iz okoline $N_k$, a ne najbolju. Cilj te odluke jeste jasna raspodela odgovornosti.
+Protresanje ima za cilj bežanje od trenutnog lokalnog optimuma, a lokalna pretraga približavanje novom (nadamo se globalnom) optimumu.
+
+Vraćanje na $k = 1$ posle svakog uspeha takođe je bitno. Kada smo pronašli novo, bolje rešenje, pretragu započinjemo upravo iz
+te tačke.
+
+## Genetski algoritam
+
+Genetski algoritam [@goldberg1989] jedini je algoritam P-metaheuristika implementiran u radu. P-metaheuristike, za razliku
+od onih S-tipa, održavaju skup **više rešenja istovremeno**. Kod genetskog algoritma nova rešenja nastaju kombinovanjem postojećih,
+a selekcija usmerava populaciju ka boljim vrednostima funkcije cilja.
+
+### Postupak
+
+```
+ulaz:  instanca, budžet B, veličina populacije P, veličina elite E
+izlaz: najbolje viđeno rešenje
+
+  populacija <- P slučajnih permutacija
+  oceni populaciju i sortiraj je
+
+  dok budžet nije potrošen:
+      nova <- elita (najboljih E jedinki, nepromenjenih)
+      dok nova nije popunjena:
+          r1 <- selekcija(populacija)
+          r2 <- selekcija(populacija)
+
+          d  <- ukrštanje(r1, r2)
+          d  <- mutacija(d, p_m)
+
+          dodaj (d, dekodiraj(d)) u novu
+      populacija <- nova, sortirana
+      ažuriraj najbolje viđeno
+  vrati najbolje
+```
+
+### Selekcija
+
+Postupak selekcije izvršava se **metodom turnira**. Ona izbor najbolje od slučajnih $N$ jedinki
+iz trenutne populacije. Veličina podskupa određuje jačinu selekcije, pri tome veća vrednost
+parametra N češće bira jače jedinke i brže smanjuje raznovrsnost.
+
+### Ukrštanje
+
+Prilikom primene genetskog algoritma na JSP nije moguće koristiti _jednopoziciono ukrštanje_. Razlog
+za to jeste što spajanje prefiksa jednog i sufiksa drugog roditelja ne garantuje da će izlazni niz biti validan.
+Recimo, za roditelje $(J_1, J_1, J_2, J_2)$ i $(J_2, J_1, J_1, J_2)$ i ukrštanje na drugoj poziciji dobija
+se $(J_1, J_1, J_1, J_2)$, u kome se oznaka $J_1$ javlja tri puta.
+
+Zbog toga je korišćen algoritam **PPX** (_precedence preservative crossover_), predložen
+za permutaciona kodiranja u raspoređivanju [@bierwirth1996]. Dete se ne dobija sečenjem,
+već se postepeno gradi koristeći dopuštene elemente:
+
+```
+ulaz:  roditelji r1 i r2
+izlaz: dete d
+
+  a <- kopija(r1)
+  b <- kopija(r2)
+  d <- prazan niz
+
+  za i od 1 do L:
+      izvor <- a ili b, slučajno
+      j <- prva oznaka u izvoru
+      dodaj j na kraj niza d
+      ukloni prvo pojavljivanje oznake j iz a
+      ukloni prvo pojavljivanje oznake j iz b
+  vrati d
+```
+
+Uklanjanje iz **oba** roditelja je ključno za ispravnost postupka. Time se garantuje da dete na kraju
+ima tačno onoliko pojavljivanja svakog posla koliko posao ima operacija. Pored toga, operator čuva i relativan
+raspored poslova, tj. ako je jedna instanca prethodila drugoj u roditelju, prethodiće i u dobijenom detetu.
+
+### Mutacija i elitizam
+
+Nakon ukrštanja, svako dete sa verovatnoćom $p_m$ biva zamenjeno jednom tačkom iz svoje okoline^[Podsetimo, neposredna okolina tačke podrazumeva sve permutacije trenutnog rasporeda dobijene tačno jednom zamenom.]. Bez mutacije algoritam raspolaže samo podacima prisutnim u početnoj populaciji, pa daje lošije rezultate pretrage.
+
+Najbolje jedinke prenose se u narednu generaciju nepromenjene kroz koncept koji nazivamo (_elitizam_). Bez toga
+najbolje pronađeno rešenje može biti izgubljeno mutacijom ili istisnuto slabijim potomcima.
+
+| parametar                  | vrednost       |
+| -------------------------- | -------------- |
+| veličina populacije        | 50             |
+| veličina turnira           | 30% populacije |
+| verovatnoća mutacije $p_m$ | 0,3            |
+| elitizam                   | 2% populacije  |
+
+: Parametri genetskog algoritma.\label{tbl:ga-parametri}
+
+## Celobrojni linearni model
+
+Kako bismo osigurali nezavisno utvrđivanje optimuma^[„Poverenje je dobro, kontrola je još bolja.” -- V. I. Lenjin] i proveru ispravnosti dekodera, prolem je
+formulisan i kao zadatak celobrojnog linearnog programiranja. Korišćena je disjunktivna formulacija koju je predložio Alan Mane [@manne1960].
+
+### Promenljive
+
+| oznaka    | tip             | značenje                                                         |
+| --------- | --------------- | ---------------------------------------------------------------- |
+| $s_{jk}$  | realna, $\ge 0$ | trenutak početka $k$-te operacije posla $j$                      |
+| $z_{ab}$  | binarna         | 1 ako operacija $a$ prethodi operaciji $b$ na zajedničkoj mašini |
+| $C_{max}$ | realna, $\ge 0$ | trajanje rasporeda                                               |
+
+: Promenljive celobrojnog modela.\label{tbl:ilp-promenljive}
+
+Binarne promenljive ovde postoje za **svaki par operacija koje se izvršavaju na istoj mašini**
+
+### Ograničenja
+
+Redosled unutar posla, za svaku operaciju osim poslednje:
+
+$$s_{j,k+1} \ge s_{jk} + p_{jk}.$$
+
+Isključivost mašine, za svaki par operacija $a$ i $b$ na istoj mašini:
+
+$$
+s_a + p_a \le s_b + M \left( 1 - z_{ab} \right), \qquad
+  s_b + p_b \le s_a + M z_{ab}.
+$$
+
+Razmotrimo dva slučaja. Kada je $z_{ab} = 1$, prva nejednakost postaje stvarno ograničenje, dok druga, zbog
+velike konstante $M$, prestaje da utiče na rezultat. Analogno važi i u suprotnom slučaju. Ovime izražavamo uslov „ili $a$ pre $b$,
+ili $b$ pre $a$".
+
+Trajanje rasporeda, za poslednju operaciju svakog posla:
+
+$$C_{max} \ge s_{j, m_j} + p_{j, m_j}.$$
+
+Funkcija cilja je $\min C_{max}$.
+
+Konstanta $M$ mora biti dovoljno velika da ograničenje učini nedelotvornim, a što manja
+radi kvaliteta linearne relaksacije. Usvojen je zbir svih trajanja u instanci, jer
+nijedan raspored ne može biti duži od njega.
+
+### Veličina modela
+
+Broj promenljivih iznosi $L + m\binom{n}{2} + 1$, a broj ograničenja
+$n(m-1) + 2m\binom{n}{2} + n$, gde je $L$ ukupan broj operacija:
+
+| instanca       | promenljivih | ograničenja |
+| -------------- | -----------: | ----------: |
+| `mini3`        |           19 |          27 |
+| `ft06`         |          127 |         216 |
+| `la01`--`la05` |          276 |         500 |
+| `ft10`         |          551 |       1 000 |
+| `ft20`         |        1 051 |       2 000 |
+
+: Veličina celobrojnog modela po instanci.\label{tbl:ilp-velicina}
+
+Model je zapisan pomoću biblioteke PuLP i rešen putem rešavača CPLEX. Rezultati su prikazani
+u odeljku o egzaktnom rešavanju.

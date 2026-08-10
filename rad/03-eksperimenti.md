@@ -228,8 +228,8 @@ Okolina zasnovana na kritičnom putu, u literaturi poznata kao $N_1$
 [@vanlaarhoven1992], razmatra samo zamene susednih operacija na kritičnom putu koje se izvršavaju na istoj mašini. Time se broj kandidata po koraku drastično smanjuje. Na primer, sa 540
 na 6,7^[Date su prosečne vrednosti broja kandidata] kod instance `ft06`, sa 4500 na 17,5 kod `ft10` i sa 4750 na 31,6 kod `ft20`, dakle između 81 i 259 puta.^[Ova merenja sprovedena su naknadno, s obzirom na neobećavajuće rezultate]
 
-Uprkos tome, pri izjednačenom broju poziva funkcije dekodiranja ta okolina daje **lošiji** rezultat od proste zamene dva elementa. Kod višestruko pokrenute lokalne pretrage na instanci `ft10` prosek je 1044,8 naspram 1032,4, a kod simuliranog kaljenja 980,6
-naspram 950,0. Na instanci `ft20` razlika je je najizraženija: 1263,8 naspram 1180,4.
+Uprkos tome, pri izjednačenom broju poziva funkcije dekodiranja ta okolina daje **lošiji** rezultat od proste zamene dva elementa. Kod višestruko pokrenute lokalne pretrage na instanci `ft10` prosek je 1063,6 naspram 1050,5, a kod simuliranog kaljenja 1001,0
+naspram 956,7. Na instanci `ft20` razlika je najizraženija: 1223,7 naspram 1182,1.
 
 Postoje dva glavna uzroka zbog čega se pojavljuju ovakvi rezultati. Prvi razlog nalazi se upravo u dizajnu samog eksperimenta, odnosno u odluci da upoređivanje metoda normalizujemo na osnovu budžeta. Naime, iako se pokazalo efektno pri usporedbi metoda optimizacije u njihovom osnovnom obliku, pri pronalaženju $N_1$ poziva se funkcija dekodiranja, što samo po sebi umanjuje budžet.
 Drugo, uža okolina daje plići pojam lokalnog optimuma, što navodi pretragu na ranije zaustavljanje i to na lošijem mestu. Kod simuliranog kaljenja postoji i treći razlog. Naime, ograničavanjem izbora na
@@ -242,7 +242,7 @@ U literaturi $N_1$ i srodne okoline daju vrlo dobre rezultate, ali u sprezi sa t
 Metoda promenljivih okolina koristi lokalnu pretragu kao potprogram i nad njom gradi mehanizam izlaska iz lokalnog optimuma. Očekivano bi bilo da nadmaši simulirano kaljenje, koje je konceptualno jednostavnije. Merenja pokazuju suprotno: pri istom
 budžetu prosečno odstupanje iznosi 2,26% za promenljive okoline naspram 0,86% za kaljenje.
 
-Razlog je u ceni jednog koraka. Jedan silazak lokalne pretrage na instanci `ft10` troši oko 40 000 poziva funkcije cilja, pa pri budžetu od 200 000 poziva metoda stigne da izvede svega nekoliko silazaka. Simulirano kaljenje u istom budžetu razmotri 200 000 pojedinačnih poteza. Pri ovako postavljenom poređenju prednost ima metoda sa jeftinijim korakom.
+Razlog je u ceni jednog koraka. Jedan silazak lokalne pretrage na instanci `ft10` troši oko 39 000 poziva funkcije cilja, pa pri budžetu od 200 000 poziva metoda stigne da izvede svega nekoliko silazaka. Simulirano kaljenje u istom budžetu razmotri 200 000 pojedinačnih poteza. Pri ovako postavljenom poređenju prednost ima metoda sa jeftinijim korakom.
 
 ### Odnos prema egzaktnom rešavanju
 

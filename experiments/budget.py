@@ -7,7 +7,7 @@ import time
 import random
 
 BASE_PATH = pathlib.Path(__file__).resolve().parents[1]
-sys.path.insert(0,"src")
+sys.path.insert(0, str(BASE_PATH / "src"))
 from jsp import *
 
 BUDGET_RANGE  = np.logspace(3, 6, 8).astype(int)      # 1 000 … 1 000 000

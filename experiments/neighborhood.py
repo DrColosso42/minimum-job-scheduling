@@ -5,7 +5,7 @@ import pathlib
 import sys
 
 BASE_PATH = pathlib.Path(__file__).resolve().parents[1]
-sys.path.insert(0,"src")
+sys.path.insert(0, str(BASE_PATH / "src"))
 from jsp import *
 
 NEIGHBORHOOD_INSTANCES = ["ft06", "ft10", "ft20"]

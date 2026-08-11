@@ -5,7 +5,7 @@ import sys
 import pathlib
 import re
 BASE_PATH = pathlib.Path(__file__).resolve().parents[1]
-sys.path.insert(0,"src")
+sys.path.insert(0, str(BASE_PATH / "src"))
 from jsp import load
 import csv
 import os
@@ -68,7 +68,7 @@ def parse_log(filepath):
     else: 
         return None, False
 
-def ilp(instance, time_limit=18000, log="results/cplex.log"):
+def ilp(instance, time_limit=18000, log=BASE_PATH / "results/cplex.log"):
     if os.path.exists(log):
         os.remove(log)
     prob, s, Cmax = build(instance)
@@ -77,7 +77,7 @@ def ilp(instance, time_limit=18000, log="results/cplex.log"):
 
     t0 = time.perf_counter()
     prob.solve(pulp.CPLEX_CMD(
-        path=CPX, msg=0, timeLimit=time_limit, logPath=log,
+        path=CPX, msg=0, timeLimit=time_limit, logPath=str(log),
         keepFiles=False,
         gapRel=0,
         options=["set output clonelog -1"]
@@ -100,15 +100,16 @@ def ilp(instance, time_limit=18000, log="results/cplex.log"):
     }
 
 
-with open("results/ilp.csv", "w", newline="") as f:
+with open(BASE_PATH / "results/ilp.csv", "w", newline="") as f:
     w = csv.writer(f)
 
     w.writerow(["instance", "num_vars", "num_constrs", "makespan", "bound",
                 "proven", "gap", "time","time_limit"])
 
     for name in INSTANCES:
-        inst = load(f"data/{name}.txt")
-        r = ilp(inst, time_limit=3600, log=f"results/logs/cplex_{name}.log")
+        inst = load(BASE_PATH / f"data/{name}.txt")
+        r = ilp(inst, time_limit=3600,
+                log=BASE_PATH / f"results/logs/cplex_{name}.log")
 
         msp = r["makespan"]
         bound = r["bound"]

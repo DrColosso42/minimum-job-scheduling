@@ -1,4 +1,8 @@
 import csv, time, random, platform, sys, pathlib, cpuinfo, psutil, datetime
+
+BASE_PATH = pathlib.Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(BASE_PATH / "src"))
+
 from jsp import *
 
 
@@ -27,7 +31,6 @@ METHODS = {
 
 BUDGET = 200_000
 REPEATS = 30
-BASE_PATH = pathlib.Path(__file__).parent
 DATA_PATH = BASE_PATH / "data"
 # INSTANCES = INSTANCES[]
 

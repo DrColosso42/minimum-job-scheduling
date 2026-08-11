@@ -16,7 +16,7 @@ METHODS   = {"annealing": simulated_annealing,
             "vns": vns,
             "ga": genetic_algorithm,
             "local_search": local_search_budget}
-REPEATS = 1
+REPEATS = 5
 
 
 

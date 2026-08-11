@@ -3,12 +3,12 @@ import math
 import random
 
 from .decoder import decode
-from .neighborhood import get_random_neighbor, neighbors, shake
+from .neighborhood import get_random_neighbor, neighbors, shake, random_swap_move, swap_neighborhood
 
 # pyright: reportFunctionMemberAccess=false
 
 
-def local_search(instance, sequence, firstimprov=False, budget=None, start=None):
+def local_search(instance, sequence, firstimprov=False, budget=None, start=None, neighborhood=swap_neighborhood):
     best_score = decode(instance,sequence)
     best_sequence = list(sequence)
 
@@ -17,7 +17,7 @@ def local_search(instance, sequence, firstimprov=False, budget=None, start=None)
         if budget is not None and decode.calls - start >= budget:
             break
         stalled = True
-        for neighbor in neighbors(sequence):
+        for neighbor in neighborhood(instance,sequence):
 
             value = decode(instance, neighbor)
 
@@ -37,18 +37,18 @@ def local_search(instance, sequence, firstimprov=False, budget=None, start=None)
     return best_score, best_sequence
 
 #LOCAL SEARCH with BUDGET
-def local_search_budget(instance, sequence, budget=100000):
+def local_search_budget(instance, sequence, budget=100000, neighborhood=swap_neighborhood):
     start = decode.calls
-    best_score, best_seq = local_search(instance, sequence, budget=budget, start=start)
+    best_score, best_seq = local_search(instance, sequence, budget=budget, start=start, neighborhood=neighborhood)
     while decode.calls - start < budget:
         s = random.sample(sequence, len(sequence))
-        value, seq = local_search(instance, s, budget=budget, start=start)
+        value, seq = local_search(instance, s, budget=budget, start=start, neighborhood=neighborhood)
         if value < best_score:
             best_score, best_seq = value, seq
     return best_score, best_seq
 
 # SIMULATED ANNEALING
-def simulated_annealing(instance, sequence, budget = 100000):
+def simulated_annealing(instance, sequence, budget = 100000, move=random_swap_move):
     start = decode.calls
     best_sequence = list(sequence)
     best_score = decode(instance, sequence)
@@ -59,7 +59,7 @@ def simulated_annealing(instance, sequence, budget = 100000):
     current_value = decode(instance,sequence)
     while decode.calls - start < budget:
 
-        neighbor = get_random_neighbor(current)
+        neighbor = move(instance,current)
 
         T *= alpha
         value = decode(instance,neighbor)

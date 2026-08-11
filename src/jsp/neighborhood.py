@@ -56,3 +56,20 @@ def n1_neighbors(instance, sequence):
             n1.append(replace_in_seq(sequence,pos[(i,j)], pos[(k,l)]))
 
     return n1
+
+
+def swap_neighborhood(instance, sequence):
+    return neighbors(sequence)
+
+
+def n1_neighborhood(instance, sequence):
+    return n1_neighbors(instance, sequence) or []
+
+
+def random_swap_move(instance, sequence):
+    return get_random_neighbor(sequence)
+
+
+def random_n1_move(instance, sequence):
+    candidates = n1_neighbors(instance, sequence)
+    return random.choice(candidates) if candidates else get_random_neighbor(sequence)

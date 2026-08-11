@@ -1,7 +1,7 @@
 from .instance import load, lower_bound
 from .decoder import decode, decode_full, reconstruct_path
 from .neighborhood import (replace_in_seq, neighbors, get_random_neighbor,
-                           shake, n1_neighbors)
+                           shake, n1_neighbors, swap_neighborhood, n1_neighborhood, random_swap_move, random_n1_move)
 from .exact import brute_force
 from .heuristics import (local_search, local_search_budget, simulated_annealing,
                          vns, crossover, select_parent, mutation,

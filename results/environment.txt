@@ -1,5 +1,5 @@
 procesor: Intel(R) Core(TM) Ultra 7 165U
-freq:     3.1001 GHz
+freq:     3.2000 GHz
 cores:    12 / 14 (cores/threads)
 RAM:      62.2 GB
 OS:       Linux-7.0.0-28-generic-x86_64-with-glibc2.39

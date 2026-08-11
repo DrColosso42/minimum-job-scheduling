@@ -137,7 +137,7 @@ devijacijom.\label{tbl:prosek}
 : Broj pokretanja, od ukupno 30, u kojima je dostignut poznati
 optimum.\label{tbl:pogodaka}
 
-Tabela \ref{tbl:najbolje} pokazuje da instance `mini3`, `ft06` i `la05` sve tri četiri rešavaju do optimuma. Standardna devijacija na njima je nula (tabela \ref{tbl:prosek}), pa te instance ne razdvajaju metode i služe isključivo kao provera ispravnosti implementacije.
+Tabela \ref{tbl:najbolje} pokazuje da instance `mini3`, `ft06` i `la05` sve četiri rešavaju do optimuma. Standardna devijacija na njima je nula (tabela \ref{tbl:prosek}), pa te instance ne razdvajaju metode i služe isključivo kao provera ispravnosti implementacije.
 
 Poređenje metoda isključivo po najboljem pronađenom rešenju prikriva stvarnu informaciju o upotrebljivosti metode. Na primer, pri rešavanju instance `la03` sve metode, osim genetskog algoritma, dostižu optimum. Ipak, tabela \ref{tbl:pogodaka} pokazuje da ga lokalna pretraga pronalazi **u samo jednom od trideset pokretanja**, dok simulirano kaljenje to uspeva pet puta. Zbog toga je pri poređenju metoda potrebno uzeti u obzir i njihovo generalno ponašanje. Nepouzdano je ograničiti se samo na najbolje primere.
 
@@ -151,7 +151,8 @@ Na najvećim instancama, `ft10` i `ft20`, nijedna metoda ne dostiže objavljeni 
 ![Rasipanje vrednosti funkcije cilja kroz 30 pokretanja, po instanci i metodi.
 Kutija obuhvata srednjih 50% rezultata, linija u njoj je medijana, a kružići označavaju odudarajuće vrednosti (_engl. outliers_).\label{sl:rasipanje}](slike/box_chart.png){width=100%}
 
-Posmatrano na svim instancama, prosečno odstupanje od optimuma iznosi 0,86% za kaljenje, 2,26% za promenljive okoline, 2,68% za genetski algoritam i 4,19% za lokalnu pretragu sa ponovnim pokretanjem. Poredak je isti u sve tri tabele, što ga čini pouzdanim zaključkom.
+Posmatrano na svim instancama, prosečno odstupanje od optimuma iznosi 0,86% za kaljenje, 2,26% za promenljive okoline, 2,68% za genetski algoritam i 4,19% za lokalnu pretragu sa ponovnim pokretanjem.
+Poredak je isti u sve tri tabele, što ga čini prihvatljivim zaključkom.
 
 ## Egzaktno rešavanje
 
@@ -212,7 +213,7 @@ Na sedam od devet instanci simulirano kaljenje dostiže objavljeni optimum. Na p
 : Poređenje najboljih pronađenih rešenja sa objavljenim optimumima. Podebljane
 vrednosti poklapaju se sa optimumom.\label{tbl:literatura}
 
-Na osnovu priloženih rezultata jasno se vidi da razvijene metode ipak **ne nadmašuju rezultate iz literature**. Objavljene vrednosti za instance `ft10` i `ft20` dostignute su metodima koji pri optimizaciji koriste strukuturu samog problema [@nowicki1996], dok su naše implementirane metode opšte prirode i oslanjaju se na pronalaženje jednostavne okoline. Ovakav ishod je očekivan i u skladu sa obimom rada.
+Na osnovu priloženih rezultata jasno se vidi da razvijene metode ipak **ne nadmašuju rezultate iz literature**. Objavljene vrednosti za instance `ft10` i `ft20` dostignute su metodima koji pri optimizaciji koriste strukturu samog problema [@nowicki1996], dok su naše implementirane metode opšte prirode i oslanjaju se na pronalaženje jednostavne okoline. Ovakav ishod je očekivan i u skladu sa obimom rada.
 
 Vredi, međutim, još jednom osvrnuti se na odnos utrošenog vremena. Rešenje vrednosti 1173 za instancu `ft20` simulirano kaljenje pronalazi za oko pet sekundi, dok egzaktni rešavač ni nakon sat vremena ne uspeva da pronađe bolje od 1182. Za praktičnu primenu, u kojoj se
 raspored često mora dobiti u kratkom roku, odstupanje ispod jednog procenta uz vreme izvršavanja od nekoliko sekundi predstavlja upotrebljiv rezultat.
@@ -249,4 +250,4 @@ Razlog je u ceni jednog koraka. Jedan silazak lokalne pretrage na instanci `ft10
 Rezultati na instanci `ft20` pokazuju granicu primenljivosti egzaktnog pristupa. Rešavač je za sat vremena pronašao rešenje vrednosti 1182 i dokazao donju granicu 657, dok je simulirano kaljenje za oko pet sekundi pronašlo rešenje vrednosti 1173.
 Uz to je jednostavna donja granica iz odeljka o donjim granicama, izračunata u zanemarljivom vremenu, iznosila 1119, što je znatno više od granice koju je rešavač dokazao.
 
-Kombinovanjem sopstvenih rezultata, dakle donje granice 1119 i najboljeg pronađenog rešenja 1173, dobija se procena optimuma sa ostupanjem od 4,6%, umesto 44,37% koliko je iznosilo odstupanje egzaktnog rešavača.
+Kombinovanjem sopstvenih rezultata, dakle donje granice 1119 i najboljeg pronađenog rešenja 1173, dobija se procena optimuma sa odstupanjem od 4,6%, umesto 44,37% koliko je iznosilo odstupanje egzaktnog rešavača.

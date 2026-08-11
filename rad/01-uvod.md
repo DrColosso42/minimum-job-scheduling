@@ -6,7 +6,7 @@ Problem raspoređivanja poslova po mašinama (engl. _job shop scheduling problem
 od najviše proučavanih problema kombinatorne optimizacije. Postavka je sledeća.
 
 Zadato je $n$ poslova i na raspolaganju je $m$ mašina (resursa). Svaki pojedinačni posao $J_j$ sastoji se od niza operacija koje moraju biti
-izvršene **tačno zadatim redosledom**. Pored toga, svaka operacija $o$ izvršava se na specifičnoj mašini $M(o)$ i traje $p_o$ jedinica vremena. Traži se raspored poslova sa \*\*najmanjim ukupnim trajanjem. Pri tome, moraju se poštovati sledeća ograničenja:
+izvršene **tačno zadatim redosledom**. Pored toga, svaka operacija $o$ izvršava se na specifičnoj mašini $M(o)$ i traje $p_o$ jedinica vremena. Traži se raspored poslova sa **najmanjim ukupnim trajanjem**. Pri tome, moraju se poštovati sledeća ograničenja:
 
 1.  **Redosled unutar posla mora biti očuvan.** Operacija $o_k$ može započeti izvršavanje tek kada je gotovo izvršavanje operacija $o_1 \dots o_{k-1}$.
 2.  **Najviše jedna operacija može da se izvršava u jednom trenutku na jednoj mašini**. Da bi operacija $o$ započela izvršavanje, mašina $M(o)$ mora biti slobodna.
@@ -24,7 +24,7 @@ Na slici iznad jasno možemo videti razliku između lošeg i dobrog rasporeda. Z
 izvršavanjem poslova jednog za drugim i traje 152 vremenske jedinice, donji je
 optimalno rešenje sa trajanjem 55.\label{sl:ft06}](slike/ft06.png){width=95%}
 
-Uticaj optimizacije još je primetniji na većoj instanci `ft06`
+Uticaj optimizacije još je primetniji na većoj instanci `ft06`.
 
 ## Složenost
 
@@ -32,7 +32,7 @@ Već pri tri mašine problem postaje NP-težak [@garey1976], a u opštem slučaj
 
 Ovu tvrdnju dodatno utvrđuje veličina prostora pretrage. Naime, za svaku mašinu biramo redosled operacija koje se na njoj izvršavaju, pa je broj kombinacija reda $(n!)^m$. Kod instance sa šest poslova i šest mašina dobijamo procenu od oko $1{,}4 \cdot 10^{17}$ kombinacija, pri čemu mnoge od tih kombinacija ne predstavljaju validan raspored.
 
-Problem se u praksi pokazao toliko težak da je instanca `ft10`, sa svojih deset poslova i deset mašina, koja je objavljena 1963. godine [@fisher1963], uprkos _skromnim_ zahtevina rešena tek **dvadeset šest godina kasnije**^[Optimalno rešenje ove konkretne instance dokazali su tek Džek Karlijer i Erik Pinson 1989. godine [@carlier1989].].
+Problem se u praksi pokazao toliko težak da je instanca `ft10`, sa svojih deset poslova i deset mašina, koja je objavljena 1963. godine [@fisher1963], uprkos _skromnim_ zahtevima rešena tek **dvadeset šest godina kasnije**^[Optimalno rešenje ove konkretne instance dokazali su tek Džek Karlijer i Erik Pinson 1989. godine [@carlier1989].].
 
 ## Pregled literature
 

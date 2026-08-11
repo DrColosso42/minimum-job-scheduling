@@ -488,7 +488,7 @@ izlaz: najbolje viđeno rešenje
 
 ### Selekcija
 
-Postupak selekcije izvršava se **metodom turnira**. Ona izbor najbolje od slučajnih $N$ jedinki
+Postupak selekcije izvršava se **metodom turnira**. Ona bira najbolje od slučajnih $N$ jedinki
 iz trenutne populacije. Veličina podskupa određuje jačinu selekcije, pri tome veća vrednost
 parametra N češće bira jače jedinke i brže smanjuje raznovrsnost.
 
@@ -542,7 +542,7 @@ najbolje pronađeno rešenje može biti izgubljeno mutacijom ili istisnuto slabi
 
 ## Celobrojni linearni model
 
-Kako bismo osigurali nezavisno utvrđivanje optimuma^[„Poverenje je dobro, kontrola je još bolja.” -- V. I. Lenjin] i proveru ispravnosti dekodera, prolem je
+Kako bismo osigurali nezavisno utvrđivanje optimuma^[Po uzoru na nemačku poslovicu „Poverenje je dobro, kontrola je još bolja.”, koja se u nekim prilikama pripisuje i Lenjinu, mada povezanost nikada nije dokazana.] i proveru ispravnosti dekodera, problem je
 formulisan i kao zadatak celobrojnog linearnog programiranja. Korišćena je disjunktivna formulacija koju je predložio Alan Mane [@manne1960].
 
 ### Promenljive

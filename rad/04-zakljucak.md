@@ -6,7 +6,7 @@ U ovom radu prikazan je problem raspoređivanja poslova po mašinama a kasnije r
 
 Sve implementirane metode poređene su pri istim uslovima. Svaka je imala jednak budžet od 200 000 poziva funkcije dekodiranja, trideset nezavisnih pokretanja nad devet instanci različitih veličina. Pri ovim uslovima najbolje se pokazala metoda simuliranog kaljenja sa 0,86% prosečnog odstupanja od optimuma. Niže rangirane su metoda promenljivih okolina (2,26%), genetski algoritam (2,68%) i lokalna pretraga sa ponovnim pokretanjem (4,19%).
 
-Simulirano kaljenje uspelo je da dostigne objavljeni optimum na sedam od devet instanci, dok je na preostale dve (`ft10` i `ft20`) odstupanje najboljeg pronađenog rešenja od optimuma iznosilo 0,75%.
+Simulirano kaljenje uspelo je da dostigne objavljeni optimum na sedam od devet instanci, dok je na preostale dve (`ft10` i `ft20`) odstupanje najboljeg pronađenog rešenja od optimuma iznosilo 0,75% i 0,69%.
 
 Konačno, celobrojni model rešen je do dokazane optimalnosti na osam od devet instanci, pri čemu se sve dobijene vrednosti poklapaju sa rezultatima iz literature. Ispravnost je potvrđena i sa druge strane, implementacijom iscrpne pretrage i njenim pokretanjem na dovoljno malim primerima.
 
@@ -28,7 +28,7 @@ Izbor parametara metoda nije sistemski optimizovan. Vrednosti početne i krajnje
 
 ## Pravci daljeg rada
 
-Najizgledniji pravac je **tabu pretraga sa okolinom nad kritičnim putem**. Merenja iz ovog rada govore nam da sama takva okolina nije dovoljna za postizanje boljeg rezultata. Očekuje se da tabu pretraga nadoknadi nedostatak raznovrsnosti okolina, a inkrementalna procena vrenosti umanji uticaj izbora metrike budžeta.
+Najizgledniji pravac je **tabu pretraga sa okolinom nad kritičnim putem**. Merenja iz ovog rada govore nam da sama takva okolina nije dovoljna za postizanje boljeg rezultata. Očekuje se da tabu pretraga nadoknadi nedostatak raznovrsnosti okolina, a inkrementalna procena vrednosti umanji uticaj izbora metrike budžeta.
 
 Drugi pravac je **proširenje modela na mašine sa kapacitetom većim od jedan**. U razmatranoj postavci mašina obrađuje najviše jednu operaciju u datom trenutku. Uopštenjem na kapacitet $c_k$, gde mašina istovremeno
 može obrađivati do $c_k$ operacija, dobija se _kumulativni_ resurs. U praksi to odgovara datacentru sa više identičnih mašina.

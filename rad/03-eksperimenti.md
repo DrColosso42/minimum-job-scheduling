@@ -9,7 +9,7 @@ Sve eksperimentalne skripte izvršavane su na privatnom računaru, čije se najz
 | komponenta                | vrednost                                            |
 | ------------------------- | --------------------------------------------------- |
 | procesor                  | Intel Core Ultra 7 165U                             |
-| frekvencija               | 3,71 GHz                                            |
+| frekvencija               | 0,4 -- 4,9 GHz                                      |
 | broj jezgara              | 12 fizičkih / 14 logičkih                           |
 | radna memorija            | 62,2 GB                                             |
 | operativni sistem         | Ubuntu 24.04.4 LTS, 7.0.0-28-generic kernel, x86-64 |
@@ -97,27 +97,27 @@ U prvoj tabeli jasno je izražena informacija o mogućnosti (potencijalu) metode
 | `mini3`  |      11 |   **11** |  **11** |  **11** |        **11** |
 | `ft06`   |      55 |   **55** |  **55** |  **55** |        **55** |
 | `la01`   |     666 |  **666** | **666** | **666** |       **666** |
-| `la02`   |     655 |  **655** | **655** | **655** |           663 |
-| `la03`   |     597 |  **597** | **597** |     604 |       **597** |
+| `la02`   |     655 |  **655** | **655** |     660 |           663 |
+| `la03`   |     597 |  **597** | **597** |     603 |       **597** |
 | `la04`   |     590 |  **590** | **590** | **590** |           594 |
 | `la05`   |     593 |  **593** | **593** | **593** |       **593** |
-| `ft10`   |     930 |      937 |     971 |     961 |          1002 |
-| `ft20`   |    1165 |     1173 |    1192 |    1180 |          1249 |
+| `ft10`   |     930 |      937 |     971 |     956 |          1002 |
+| `ft20`   |    1165 | **1165** |    1192 |    1185 |          1249 |
 
 : Najbolje pronađeno rešenje kroz 30 pokretanja. Podebljane vrednosti poklapaju se sa
 objavljenim optimumom.\label{tbl:najbolje}
 
-| instanca |      kaljenje |           VNS |            GA | lok. pretraga |
-| -------- | ------------: | ------------: | ------------: | ------------: |
-| `mini3`  |    11,0 ± 0,0 |    11,0 ± 0,0 |    11,0 ± 0,0 |    11,0 ± 0,0 |
-| `ft06`   |    55,0 ± 0,0 |    55,0 ± 0,0 |    55,0 ± 0,0 |    55,0 ± 0,0 |
-| `la01`   |   666,0 ± 0,0 |   666,0 ± 0,0 |   670,9 ± 8,9 |   666,0 ± 0,0 |
-| `la02`   |   659,0 ± 5,7 |   660,7 ± 6,6 |   669,9 ± 9,4 |   674,5 ± 9,0 |
-| `la03`   |   606,2 ± 7,4 |   607,6 ± 7,0 |  625,6 ± 14,2 |   623,9 ± 9,9 |
-| `la04`   |   591,2 ± 2,0 |   594,1 ± 4,2 |  606,0 ± 14,2 |   607,5 ± 7,3 |
-| `la05`   |   593,0 ± 0,0 |   593,0 ± 0,0 |   593,0 ± 0,0 |   593,0 ± 0,0 |
-| `ft10`   |  965,2 ± 16,3 | 1023,8 ± 24,7 | 1012,1 ± 30,9 | 1059,6 ± 30,0 |
-| `ft20`   | 1183,8 ± 11,1 | 1245,8 ± 29,9 | 1221,0 ± 26,6 | 1320,1 ± 40,9 |
+| instanca |     kaljenje |           VNS |            GA | lok. pretraga |
+| -------- | -----------: | ------------: | ------------: | ------------: |
+| `mini3`  |   11,0 ± 0,0 |    11,0 ± 0,0 |    11,0 ± 0,0 |    11,0 ± 0,0 |
+| `ft06`   |   55,0 ± 0,0 |    55,0 ± 0,0 |    55,2 ± 0,8 |    55,0 ± 0,0 |
+| `la01`   |  666,0 ± 0,0 |   666,0 ± 0,0 |   670,0 ± 8,2 |   666,0 ± 0,0 |
+| `la02`   |  659,4 ± 5,7 |   660,7 ± 6,6 |  673,3 ± 11,1 |   674,5 ± 9,0 |
+| `la03`   |  602,1 ± 4,0 |   607,6 ± 7,0 |  623,8 ± 10,1 |   623,9 ± 9,9 |
+| `la04`   |  591,7 ± 2,9 |   594,1 ± 4,2 |   602,2 ± 7,7 |   607,5 ± 7,3 |
+| `la05`   |  593,0 ± 0,0 |   593,0 ± 0,0 |   593,0 ± 0,0 |   593,0 ± 0,0 |
+| `ft10`   | 959,2 ± 14,3 | 1023,8 ± 24,7 | 1021,7 ± 32,2 | 1059,6 ± 30,0 |
+| `ft20`   | 1180,8 ± 7,3 | 1245,8 ± 29,9 | 1229,2 ± 23,9 | 1320,1 ± 40,9 |
 
 : Prosečna vrednost funkcije cilja kroz 30 pokretanja, sa standardnom
 devijacijom.\label{tbl:prosek}
@@ -125,33 +125,33 @@ devijacijom.\label{tbl:prosek}
 | instanca | kaljenje | VNS |  GA | lok. pretraga |
 | -------- | -------: | --: | --: | ------------: |
 | `mini3`  |       30 |  30 |  30 |            30 |
-| `ft06`   |       30 |  30 |  30 |            30 |
-| `la01`   |       30 |  30 |  20 |            30 |
-| `la02`   |       19 |  16 |   2 |             0 |
-| `la03`   |        5 |   3 |   0 |             1 |
-| `la04`   |       21 |  11 |   4 |             0 |
+| `ft06`   |       30 |  30 |  28 |            30 |
+| `la01`   |       30 |  30 |  19 |            30 |
+| `la02`   |       18 |  16 |   0 |             0 |
+| `la03`   |        8 |   3 |   0 |             1 |
+| `la04`   |       21 |  11 |   3 |             0 |
 | `la05`   |       30 |  30 |  30 |            30 |
 | `ft10`   |        0 |   0 |   0 |             0 |
-| `ft20`   |        0 |   0 |   0 |             0 |
+| `ft20`   |        1 |   0 |   0 |             0 |
 
 : Broj pokretanja, od ukupno 30, u kojima je dostignut poznati
 optimum.\label{tbl:pogodaka}
 
-Tabela \ref{tbl:najbolje} pokazuje da instance `mini3`, `ft06` i `la05` sve četiri rešavaju do optimuma. Standardna devijacija na njima je nula (tabela \ref{tbl:prosek}), pa te instance ne razdvajaju metode i služe isključivo kao provera ispravnosti implementacije.
+Tabela \ref{tbl:najbolje} pokazuje da instance `mini3`, `ft06` i `la05` sve četiri rešavaju do optimuma. Standardna devijacija na njima je nula (tabela \ref{tbl:prosek}), uz jedini izuzetak genetskog algoritma na instanci `ft06`, koji u dva od trideset pokretanja završi sa vrednostima 57 i 59. Te instance stoga gotovo da ne razdvajaju metode i služe pre svega kao provera ispravnosti implementacije.
 
-Poređenje metoda isključivo po najboljem pronađenom rešenju prikriva stvarnu informaciju o upotrebljivosti metode. Na primer, pri rešavanju instance `la03` sve metode, osim genetskog algoritma, dostižu optimum. Ipak, tabela \ref{tbl:pogodaka} pokazuje da ga lokalna pretraga pronalazi **u samo jednom od trideset pokretanja**, dok simulirano kaljenje to uspeva pet puta. Zbog toga je pri poređenju metoda potrebno uzeti u obzir i njihovo generalno ponašanje. Nepouzdano je ograničiti se samo na najbolje primere.
+Poređenje metoda isključivo po najboljem pronađenom rešenju prikriva stvarnu informaciju o upotrebljivosti metode. Na primer, pri rešavanju instance `la03` sve metode, osim genetskog algoritma, dostižu optimum. Ipak, tabela \ref{tbl:pogodaka} pokazuje da ga lokalna pretraga pronalazi **u samo jednom od trideset pokretanja**, dok simulirano kaljenje to uspeva osam puta. Zbog toga je pri poređenju metoda potrebno uzeti u obzir i njihovo generalno ponašanje. Nepouzdano je ograničiti se samo na najbolje primere.
 
-Na instancama `la02`, `la03` i `la04` razlike su najizraženije. Kaljenje dostiže optimum redom 19, 5 i 21 put, promenljive okoline 16, 3 i 11 puta, dok lokalna pretraga ne uspeva
+Na instancama `la02`, `la03` i `la04` razlike su najizraženije. Kaljenje dostiže optimum redom 18, 8 i 21 put, promenljive okoline 16, 3 i 11 puta, dok lokalna pretraga ne uspeva
 gotovo nikada.
 
 Instanca `la03` se u rezultatima izdvaja. Naime, iako je istih dimenzija kao `la02` i `la04`, sve metode je rešavaju znatno teže. Uzrok nije utvrđen u okviru ovog rada.
 
-Na najvećim instancama, `ft10` i `ft20`, nijedna metoda ne dostiže objavljeni optimum. Ipak, simulirano kaljenje je i tu najbliže, sa prosečnim odstupanjem od 3,8% odnosno 1,6%.
+Na najvećim instancama, `ft10` i `ft20`, nijedna metoda ne dostiže objavljeni optimum pouzdano. Jedini pogodak je kaljenje na instanci `ft20`, i to u samo jednom od trideset pokretanja. Simulirano kaljenje je i tu najbliže, sa prosečnim odstupanjem od 3,1% odnosno 1,4%.
 
 ![Rasipanje vrednosti funkcije cilja kroz 30 pokretanja, po instanci i metodi.
 Kutija obuhvata srednjih 50% rezultata, linija u njoj je medijana, a kružići označavaju odudarajuće vrednosti (_engl. outliers_).\label{sl:rasipanje}](slike/box_chart.png){width=100%}
 
-Posmatrano na svim instancama, prosečno odstupanje od optimuma iznosi 0,86% za kaljenje, 2,26% za promenljive okoline, 2,68% za genetski algoritam i 4,19% za lokalnu pretragu sa ponovnim pokretanjem.
+Posmatrano na svim instancama, prosečno odstupanje od optimuma iznosi 0,70% za kaljenje, 2,26% za promenljive okoline, 2,85% za genetski algoritam i 4,19% za lokalnu pretragu sa ponovnim pokretanjem.
 Poredak je isti u sve tri tabele, što ga čini prihvatljivim zaključkom.
 
 ## Egzaktno rešavanje
@@ -185,18 +185,18 @@ Vertikalna osa je logaritamska. Instanca `ft20` nije rešena u zadatom roku od s
 vremena.\label{sl:ilp-rast}](slike/ilp_rast.png){width=95%}
 
 Posvetimo na kratko pažnju instanci `ft20`. Nakon sat vremena rešavač je pronašao rešenje vrednosti 1182 i dokazao donju granicu 657. U pitanju je razilaženje od preko 44%. Poređenja radi,
-simulirano kaljenje je u istom okruženju pronašlo rešenje vrednosti 1173 za oko pet
+simulirano kaljenje je u istom okruženju pronašlo rešenje vrednosti 1165 za nepunih šest
 sekundi. Rezultat je da je primenom metode optimizacije putem metaheuristika pronađeno **bolje rešenje u vremenu manjem za tri reda veličine**.
 
 Pored toga, jednostavna donja granica opisana u odeljku o donjim granicama iznosi za `ft20` **1119**, što je znatno jače ograničenje od granice 657 koju je rešavač dokazao za sat
-vremena. Kombinovanjem te granice sa najboljim pronađenim rešenjem dobija se interval $[1119, 1173]$, odnosno raskol od 4,6% umesto 44,37%.
+vremena. Kombinovanjem te granice sa najboljim pronađenim rešenjem dobija se interval $[1119, 1165]$, odnosno raskol od 4,1% umesto 44,37%.
 
 ## Poređenje sa rezultatima iz literature
 
 U cilju procene realne upotrebljivosti razvijenih metoda, njihovi rezultati upoređeni su sa optimalnim vrednostima objavljenim u literaturi. Za instance iz zbirke OR-Library te vrednosti su odavno poznate i dosegnute su specijalizovanim metodama, između ostalih egzaktnim algoritmima granjanja i ograđivanja, i tabu pretragom
 prilagođenom strukturi problema.
 
-Na sedam od devet instanci simulirano kaljenje dostiže objavljeni optimum. Na preostale dve, `ft10` i `ft20`, odstupanje iznosi 0,75% odnosno 0,69%.
+Na osam od devet instanci simulirano kaljenje dostiže objavljeni optimum, s tim da ga na instanci `ft20` pronalazi u samo jednom od trideset pokretanja. Jedina instanca na kojoj optimum nije dostignut je `ft10`, gde odstupanje iznosi 0,75%.
 
 | instanca | optimum | najbolje (kaljenje) | odstupanje |     ILP | odstupanje |
 | -------- | ------: | ------------------: | ---------: | ------: | ---------: |
@@ -208,14 +208,14 @@ Na sedam od devet instanci simulirano kaljenje dostiže objavljeni optimum. Na p
 | `la04`   |     590 |             **590** |          0 | **590** |          0 |
 | `la05`   |     593 |             **593** |          0 | **593** |          0 |
 | `ft10`   |     930 |                 937 |     0,75 % | **930** |          0 |
-| `ft20`   |    1165 |                1173 |     0,69 % |    1182 |     1,46 % |
+| `ft20`   |    1165 |            **1165** |          0 |    1182 |     1,46 % |
 
 : Poređenje najboljih pronađenih rešenja sa objavljenim optimumima. Podebljane
 vrednosti poklapaju se sa optimumom.\label{tbl:literatura}
 
 Na osnovu priloženih rezultata jasno se vidi da razvijene metode ipak **ne nadmašuju rezultate iz literature**. Objavljene vrednosti za instance `ft10` i `ft20` dostignute su metodima koji pri optimizaciji koriste strukturu samog problema [@nowicki1996], dok su naše implementirane metode opšte prirode i oslanjaju se na pronalaženje jednostavne okoline. Ovakav ishod je očekivan i u skladu sa obimom rada.
 
-Vredi, međutim, još jednom osvrnuti se na odnos utrošenog vremena. Rešenje vrednosti 1173 za instancu `ft20` simulirano kaljenje pronalazi za oko pet sekundi, dok egzaktni rešavač ni nakon sat vremena ne uspeva da pronađe bolje od 1182. Za praktičnu primenu, u kojoj se
+Vredi, međutim, još jednom osvrnuti se na odnos utrošenog vremena. Rešenje vrednosti 1165 za instancu `ft20` simulirano kaljenje pronalazi za nepunih šest sekundi, dok egzaktni rešavač ni nakon sat vremena ne uspeva da pronađe bolje od 1182. Za praktičnu primenu, u kojoj se
 raspored često mora dobiti u kratkom roku, odstupanje ispod jednog procenta uz vreme izvršavanja od nekoliko sekundi predstavlja upotrebljiv rezultat.
 
 ## Diskusija
@@ -227,7 +227,7 @@ a koje su bitno uticale na konačan izbor metoda i njihovih parametara.
 
 Okolina zasnovana na kritičnom putu, u literaturi poznata kao $N_1$
 [@vanlaarhoven1992], razmatra samo zamene susednih operacija na kritičnom putu koje se izvršavaju na istoj mašini. Time se broj kandidata po koraku drastično smanjuje. Na primer, sa 540
-na 6,7^[Date su prosečne vrednosti broja kandidata] kod instance `ft06`, sa 4500 na 17,5 kod `ft10` i sa 4750 na 31,6 kod `ft20`, dakle između 81 i 259 puta.^[Ova merenja sprovedena su naknadno, s obzirom na neobećavajuće rezultate]
+na 6,7^[Date su prosečne vrednosti broja kandidata] kod instance `ft06`, sa 4500 na 17,4 kod `ft10` i sa 4750 na 31,6 kod `ft20`, dakle između 81 i 259 puta.^[Ova merenja sprovedena su naknadno, s obzirom na neobećavajuće rezultate]
 
 Uprkos tome, pri izjednačenom broju poziva funkcije dekodiranja ta okolina daje **lošiji** rezultat od proste zamene dva elementa. Kod višestruko pokrenute lokalne pretrage na instanci `ft10` prosek je 1063,6 naspram 1050,5, a kod simuliranog kaljenja 1001,0
 naspram 956,7. Na instanci `ft20` razlika je najizraženija: 1223,7 naspram 1182,1.
@@ -241,13 +241,13 @@ U literaturi $N_1$ i srodne okoline daju vrlo dobre rezultate, ali u sprezi sa t
 ### Složenija metoda nije nužno bolja
 
 Metoda promenljivih okolina koristi lokalnu pretragu kao potprogram i nad njom gradi mehanizam izlaska iz lokalnog optimuma. Očekivano bi bilo da nadmaši simulirano kaljenje, koje je konceptualno jednostavnije. Merenja pokazuju suprotno: pri istom
-budžetu prosečno odstupanje iznosi 2,26% za promenljive okoline naspram 0,86% za kaljenje.
+budžetu prosečno odstupanje iznosi 2,26% za promenljive okoline naspram 0,70% za kaljenje.
 
 Razlog je u ceni jednog koraka. Jedan silazak lokalne pretrage na instanci `ft10` troši oko 39 000 poziva funkcije cilja, pa pri budžetu od 200 000 poziva metoda stigne da izvede svega nekoliko silazaka. Simulirano kaljenje u istom budžetu razmotri 200 000 pojedinačnih poteza. Pri ovako postavljenom poređenju prednost ima metoda sa jeftinijim korakom.
 
 ### Odnos prema egzaktnom rešavanju
 
-Rezultati na instanci `ft20` pokazuju granicu primenljivosti egzaktnog pristupa. Rešavač je za sat vremena pronašao rešenje vrednosti 1182 i dokazao donju granicu 657, dok je simulirano kaljenje za oko pet sekundi pronašlo rešenje vrednosti 1173.
+Rezultati na instanci `ft20` pokazuju granicu primenljivosti egzaktnog pristupa. Rešavač je za sat vremena pronašao rešenje vrednosti 1182 i dokazao donju granicu 657, dok je simulirano kaljenje za nepunih šest sekundi pronašlo rešenje vrednosti 1165.
 Uz to je jednostavna donja granica iz odeljka o donjim granicama, izračunata u zanemarljivom vremenu, iznosila 1119, što je znatno više od granice koju je rešavač dokazao.
 
-Kombinovanjem sopstvenih rezultata, dakle donje granice 1119 i najboljeg pronađenog rešenja 1173, dobija se procena optimuma sa odstupanjem od 4,6%, umesto 44,37% koliko je iznosilo odstupanje egzaktnog rešavača.
+Kombinovanjem sopstvenih rezultata, dakle donje granice 1119 i najboljeg pronađenog rešenja 1165, dobija se procena optimuma sa odstupanjem od 4,1%, umesto 44,37% koliko je iznosilo odstupanje egzaktnog rešavača.

@@ -4,9 +4,9 @@ U ovom radu prikazan je problem raspoređivanja poslova po mašinama a kasnije r
 
 ## Postignuti rezultati
 
-Sve implementirane metode poređene su pri istim uslovima. Svaka je imala jednak budžet od 200 000 poziva funkcije dekodiranja, trideset nezavisnih pokretanja nad devet instanci različitih veličina. Pri ovim uslovima najbolje se pokazala metoda simuliranog kaljenja sa 0,86% prosečnog odstupanja od optimuma. Niže rangirane su metoda promenljivih okolina (2,26%), genetski algoritam (2,68%) i lokalna pretraga sa ponovnim pokretanjem (4,19%).
+Sve implementirane metode poređene su pri istim uslovima. Svaka je imala jednak budžet od 200 000 poziva funkcije dekodiranja, trideset nezavisnih pokretanja nad devet instanci različitih veličina. Pri ovim uslovima najbolje se pokazala metoda simuliranog kaljenja sa 0,70% prosečnog odstupanja od optimuma. Niže rangirane su metoda promenljivih okolina (2,26%), genetski algoritam (2,85%) i lokalna pretraga sa ponovnim pokretanjem (4,19%).
 
-Simulirano kaljenje uspelo je da dostigne objavljeni optimum na sedam od devet instanci, dok je na preostale dve (`ft10` i `ft20`) odstupanje najboljeg pronađenog rešenja od optimuma iznosilo 0,75% i 0,69%.
+Simulirano kaljenje uspelo je da dostigne objavljeni optimum na osam od devet instanci, s tim da ga je na instanci `ft20` pronašlo u samo jednom od trideset pokretanja. Na preostaloj instanci, `ft10`, odstupanje najboljeg pronađenog rešenja od optimuma iznosilo je 0,75%.
 
 Konačno, celobrojni model rešen je do dokazane optimalnosti na osam od devet instanci, pri čemu se sve dobijene vrednosti poklapaju sa rezultatima iz literature. Ispravnost je potvrđena i sa druge strane, implementacijom iscrpne pretrage i njenim pokretanjem na dovoljno malim primerima.
 

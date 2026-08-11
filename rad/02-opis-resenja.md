@@ -274,7 +274,7 @@ Ovakva definicija okoline ne koristi nikakvo znanje o problemu. Ne služi se oso
 Iz osobine kritičnog puta, izvedene ranije, sledi da izmena koja ne dira nijednu operaciju sa puta ne može smanjiti $C_{max}$. Prirodno je stoga razmatrati samo izmene koje ga dodiruju.
 
 Upravo tu osobinu koristi $N_1$ okolina koju su predložili Piter van Larhoven i saradnici [@vanlaarhoven1992]. Ona obuhvata
-zamene **susednih operacija na kritičnom putu koje se izvršavaju na istoj mašini**. Oba uslova su neophodna za uspešnost definicije ove okoline. Najpre susednost obezbeđuje da izmena utiče na kritičan put, a zajednička mašina obezbeđuje da je izmena validna (jer se redosled unutar posla ne sme menjati).
+zamene **susednih operacija na kritičnom putu koje se izvršavaju na istoj mašini**. Oba uslova su neophodna za uspešnost definicije ove okoline. Najpre susednost obezbeđuje da izmena utiče na kritičan put, a zajednička mašina obezbeđuje da je izmena validna (jer se redosled unutar posla ne sme menjati).^[Implementacija u ovom radu zamenjuje dve **pozicije** u nizu sa ponavljanjem, a ne dve operacije u redosledu po mašini. Kada između te dve pozicije postoji još neko pojavljivanje istih oznaka poslova, brojači pojavljivanja se pomeraju, pa izmena zahvata i operacije između njih. Dobijeni niz je i dalje ispravan i i dalje dodiruje kritičan put, ali je potez nešto širi od izvorne definicije. Reč je, dakle, o približenju okoline $N_1$, ne o njenoj vernoj implementaciji.]
 
 Sužavanje prostora pretrage je znatno:
 

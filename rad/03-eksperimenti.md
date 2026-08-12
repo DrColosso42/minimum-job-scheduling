@@ -229,8 +229,8 @@ Okolina zasnovana na kritičnom putu, u literaturi poznata kao $N_1$
 [@vanlaarhoven1992], razmatra samo zamene susednih operacija na kritičnom putu koje se izvršavaju na istoj mašini. Time se broj kandidata po koraku drastično smanjuje. Na primer, sa 540
 na 6,7^[Date su prosečne vrednosti broja kandidata] kod instance `ft06`, sa 4500 na 17,4 kod `ft10` i sa 4750 na 31,6 kod `ft20`, dakle između 81 i 259 puta.^[Ova merenja sprovedena su naknadno, s obzirom na neobećavajuće rezultate]
 
-Uprkos tome, pri izjednačenom broju poziva funkcije dekodiranja ta okolina daje **lošiji** rezultat od proste zamene dva elementa. Kod višestruko pokrenute lokalne pretrage na instanci `ft10` prosek je 1063,6 naspram 1050,5, a kod simuliranog kaljenja 1001,0
-naspram 956,7. Na instanci `ft20` razlika je najizraženija: 1223,7 naspram 1182,1.
+Uprkos tome, pri izjednačenom broju poziva funkcije dekodiranja ta okolina daje **lošiji** rezultat od proste zamene dva elementa. Kod višestruko pokrenute lokalne pretrage na instanci `ft10` prosek je 1063,6 naspram 1051,8, a kod simuliranog kaljenja 1000,5
+naspram 956,7. Na instanci `ft20` razlika je najizraženija: 1223,7 naspram 1180,7.
 
 Postoje dva glavna uzroka zbog čega se pojavljuju ovakvi rezultati. Prvi razlog nalazi se upravo u dizajnu samog eksperimenta, odnosno u odluci da upoređivanje metoda normalizujemo na osnovu budžeta. Naime, iako se pokazalo efektno pri usporedbi metoda optimizacije u njihovom osnovnom obliku, pri pronalaženju $N_1$ poziva se funkcija dekodiranja, što samo po sebi umanjuje budžet.
 Drugo, uža okolina daje plići pojam lokalnog optimuma, što navodi pretragu na ranije zaustavljanje i to na lošijem mestu. Kod simuliranog kaljenja postoji i treći razlog. Naime, ograničavanjem izbora na

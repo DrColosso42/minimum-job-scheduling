@@ -295,10 +295,10 @@ Očekivano bi bilo da uža okolina, koja razmatra samo poteze sa izgledom na usp
 | -------- | ---------------- | ---------: | -----: |
 | `ft06`   | lokalna pretraga |       55,0 |   55,0 |
 | `ft06`   | kaljenje         |       55,0 |   55,0 |
-| `ft10`   | lokalna pretraga | **1050,5** | 1063,6 |
-| `ft10`   | kaljenje         |  **956,7** | 1001,0 |
-| `ft20`   | lokalna pretraga | **1305,1** | 1431,2 |
-| `ft20`   | kaljenje         | **1182,1** | 1223,7 |
+| `ft10`   | lokalna pretraga | **1051,8** | 1063,6 |
+| `ft10`   | kaljenje         |  **956,7** | 1000,5 |
+| `ft20`   | lokalna pretraga | **1310,0** | 1431,2 |
+| `ft20`   | kaljenje         | **1180,7** | 1223,7 |
 
 : Prosečna vrednost funkcije cilja pri izjednačenom budžetu, po
 okolini.\label{tbl:poredjenje-okolina}

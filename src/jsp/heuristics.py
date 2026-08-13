@@ -48,12 +48,13 @@ def local_search_budget(instance, sequence, budget=100000, neighborhood=swap_nei
     return best_score, best_seq
 
 # SIMULATED ANNEALING
-def simulated_annealing(instance, sequence, budget = 100000, move=random_swap_move):
+def simulated_annealing(instance, sequence, budget = 100000, move=random_swap_move,
+                        T0=20, Tk=0.001):
     start = decode.calls
     best_sequence = list(sequence)
     best_score = decode(instance, sequence)
-    T = 20
-    alpha = (0.001/T)**(1/budget)
+    T = T0
+    alpha = (Tk/T0)**(1/budget)
 
     current = sequence
     current_value = decode(instance,sequence)

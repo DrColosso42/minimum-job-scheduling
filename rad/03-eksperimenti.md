@@ -154,6 +154,87 @@ Kutija obuhvata srednjih 50% rezultata, linija u njoj je medijana, a kružići o
 Posmatrano na svim instancama, prosečno odstupanje od optimuma iznosi 0,70% za kaljenje, 2,26% za promenljive okoline, 2,85% za genetski algoritam i 4,19% za lokalnu pretragu sa ponovnim pokretanjem.
 Poredak je isti u sve tri tabele, što ga čini prihvatljivim zaključkom.
 
+## Uticaj vrednosti parametara
+
+Svaka od implementiranih metoda, pored početne tačke, zavisi i od nekih, sebi specifičnih, parametara. Vrednosti tih parametara do sada su birane po preporukama iz arhitekture, ali je potrebno i eksperimentalno potvrditi njihovu validnost i uspešnost.
+
+### Postavka
+
+U eksperimentu je testiran **po jedan parametar u svakom trenutku**, dok su svi ostali parametri zadržali fiksirane vrednosti. Za svaki testirani parametar izabrano je po nekoliko vrednosti oko podrazumevane tako da opseg testiranja pokrije što raznovrsnije vrednosti uz razumno vreme izvršavanja testa.
+
+| metoda   | parametar         | značenje                              |
+| -------- | ----------------- | ------------------------------------- |
+| kaljenje | `T0`              | početna temperatura                   |
+| VNS      | `kmax`            | najveća okolina                       |
+| GA       | `population_size` | veličina populacije                   |
+| GA       | `p`               | verovatnoća mutacije                  |
+| GA       | `tournament_pct`  | veličina turnira, kao udeo populacije |
+
+: Ispitivani parametri.\label{tbl:parametri-opis}
+
+Merenje je sprovedeno nad trima instancama: `la03`, `ft10` i `ft20`. Izabrane su konkretne instance zbog toga što glavni ekperiment pokazuje da se na njima vidi najveća varijacija pri različitim metodama.
+
+Takođe, poput glavnog eksperimenta, metode su pokretane sa budžetom od 200 000 poziva dekodera po deset puta za svaki parametar. Pri tome se koristi isti generator tako da su svi ostali uslovi identični.
+
+### Rezultati
+
+| metoda   | parametar         | vrednost | `la03` | `ft10` | `ft20` | odstupanje |       $p$ |
+| -------- | ----------------- | -------: | -----: | -----: | -----: | ---------: | --------: |
+| kaljenje | `T0`              |        5 |  602,6 |  982,4 | 1183,1 |      2,7 % | **0,009** |
+| kaljenje | `T0`              |       20 |  602,1 |  956,7 | 1180,7 |      1,7 % |       --- |
+| kaljenje | `T0`              |       50 |  603,6 |  959,4 | 1182,2 |      1,9 % |     0,449 |
+| kaljenje | `T0`              |      100 |  601,2 |  957,4 | 1180,2 |      1,7 % |     0,926 |
+| VNS      | `kmax`            |        2 |  610,7 | 1022,3 | 1267,7 |      7,0 % |     0,924 |
+| VNS      | `kmax`            |        5 |  605,9 | 1040,7 | 1263,6 |      7,3 % |     0,181 |
+| VNS      | `kmax`            |       10 |  606,6 | 1031,4 | 1263,8 |      7,0 % |       --- |
+| VNS      | `kmax`            |       20 |  609,7 | 1031,4 | 1263,8 |      7,2 % |     0,064 |
+| GA       | `population_size` |       20 |  626,0 | 1008,0 | 1233,2 |      6,4 % |     0,880 |
+| GA       | `population_size` |       50 |  625,4 | 1015,7 | 1229,2 |      6,5 % |       --- |
+| GA       | `population_size` |      100 |  622,3 | 1026,9 | 1226,7 |      6,7 % |     0,712 |
+| GA       | `population_size` |      200 |  619,9 | 1024,6 | 1252,3 |      7,2 % |     0,214 |
+| GA       | `p`               |      0,1 |  623,1 | 1050,0 | 1245,6 |      8,1 % | **0,017** |
+| GA       | `p`               |      0,3 |  625,4 | 1015,7 | 1229,2 |      6,5 % |       --- |
+| GA       | `p`               |      0,5 |  620,2 | 1001,5 | 1227,7 |      5,7 % |     0,264 |
+| GA       | `p`               |      0,7 |  620,7 | 1002,7 | 1230,1 |      5,8 % |     0,224 |
+| GA       | `tournament_pct`  |      0,1 |  623,2 | 1006,9 | 1224,8 |      5,9 % |     0,419 |
+| GA       | `tournament_pct`  |      0,3 |  625,4 | 1015,7 | 1229,2 |      6,5 % |       --- |
+| GA       | `tournament_pct`  |      0,6 |  624,0 | 1007,6 | 1234,5 |      6,3 % |     0,802 |
+
+: Prosečna vrednost funkcije cilja po instanci i prosečno odstupanje od optimuma, kroz
+10 pokretanja. Red bez vrednosti $p$ je podrazumevana vrednost, prema kojoj se ostale
+porede.\label{tbl:parametri}
+
+Primetno je da su odstupanja dosta veća nego tabeli \ref{tbl:prosek}, što je uzrokovano izborom tri najteže instance. One koje
+metode lako rešavaju do optimuma ovde nisu iskorišćene.
+
+### Provera značajnosti
+
+Upoređivanje proseka ovde nije nužno dovoljno za pouzdanu analizu. Razlike između parametara su reda nekoliko jedinica, a
+standardna devijacija je kroz ponavljanja oko 30, što nam govori da neki rezultati mogu biti postignuti samo usled slučajnosti.
+
+Srećom, pokretanja se mogu porediti i u parovima, zbog korišćenja iste vrednosti generatora. Formirano je trideset razlika
+u odnosu na podrazumevanu. Dobijeni rezultat jeste tabela u kojoj parametar $p$ govori kolika je verovatnoća da bi se razlika
+te veličine dobila slučajno.
+
+Ova analiza pokazuje da samo dva para postižu prag od 0,05:
+
+- simulirano kaljenje pri $T_0 = 5$ je lošije za 10,21 jedinicu u proseku, $p = 0{,}009$
+- genetski algoritam pri $p_m = 0{,}1$ je lošiji za 17,29 jedinica, $p = 0{,}017$
+
+Sve ostale vrednosti, uključujući i one koje u tabeli izgledaju bolje od podrazumevanih, ne razlikuju se značajno. Konkretno, $T_0 = 100$ i $p_m = 0{,}5$ imaju naizgled niže odstupanje, ali su im $p$ vrednosti 0,926 i 0,264, pa se ta prednost ne može tvrditi.
+
+### Tumačenje
+
+Rezultat analize govori nam da na su izabrane metode gotovo **neosetljive na izbor parametara u širokom opsegu**, ali postoji
+donji prag ispod koga metode postaju značajno nepouzdanije.
+
+Oba statistički značajna slučaja su upravo slučajevi donje granice i oba imaju jasno objašnjenje. Pri $T_0 = 5$ je verovatnoća prihvatanja lošijeg rešenja izuzetno mala, pa kaljenje ne može da pobegne lokalnim optimumima. Slično, pri $p_m = 0{,}1$ mutacija ima nedovoljno visoku šansu dešavanja pa raznovrsnost populacije ostaje ograničena početnom populacijom i algoritam daje loše rezultate.
+
+Metoda promenljivih okolina pokazala se potpuno neosetljivom na izbor parametra $k_{max}$. Ne postoji statistički značajna razlika između vrednosti 2 i 20. Ovde vredi primetiti da su veće okoline potencijalno ograničene budžetom, s obzirom da pretraga ne stigne da istraži udaljene tačke pre nego joj ponestane budžeta.
+
+Praktična posledica jeste da fini izbor parametra iz odeljka o metodologiji ne utiče presudno na rezultate metode, sve dok je on
+u prihvatljivom opsegu, pa zaključci iz prethodnog odeljka ne zavise od izbora.
+
 ## Egzaktno rešavanje
 
 Radi provere ispravnosti razvijenih metoda i utvrđivanja stvarnih optimuma, problem je rešen i egzaktno, celobrojnim linearnim programiranjem. Korišćena je disjunktivna

@@ -184,14 +184,14 @@ Takođe, poput glavnog eksperimenta, metode su pokretane sa budžetom od 200 000
 | kaljenje | `T0`              |       20 |  602,1 |  956,7 | 1180,7 |      1,7 % |       --- |
 | kaljenje | `T0`              |       50 |  603,6 |  959,4 | 1182,2 |      1,9 % |     0,449 |
 | kaljenje | `T0`              |      100 |  601,2 |  957,4 | 1180,2 |      1,7 % |     0,926 |
-| VNS      | `kmax`            |        2 |  610,7 | 1022,3 | 1267,7 |      7,0 % |     0,924 |
+| VNS      | `kmax`            |        2 |  610,7 | 1022,3 | 1267,7 |      7,0 % |     0,923 |
 | VNS      | `kmax`            |        5 |  605,9 | 1040,7 | 1263,6 |      7,3 % |     0,181 |
 | VNS      | `kmax`            |       10 |  606,6 | 1031,4 | 1263,8 |      7,0 % |       --- |
 | VNS      | `kmax`            |       20 |  609,7 | 1031,4 | 1263,8 |      7,2 % |     0,064 |
 | GA       | `population_size` |       20 |  626,0 | 1008,0 | 1233,2 |      6,4 % |     0,880 |
 | GA       | `population_size` |       50 |  625,4 | 1015,7 | 1229,2 |      6,5 % |       --- |
 | GA       | `population_size` |      100 |  622,3 | 1026,9 | 1226,7 |      6,7 % |     0,712 |
-| GA       | `population_size` |      200 |  619,9 | 1024,6 | 1252,3 |      7,2 % |     0,214 |
+| GA       | `population_size` |      200 |  619,9 | 1024,6 | 1252,3 |      7,2 % |     0,213 |
 | GA       | `p`               |      0,1 |  623,1 | 1050,0 | 1245,6 |      8,1 % | **0,017** |
 | GA       | `p`               |      0,3 |  625,4 | 1015,7 | 1229,2 |      6,5 % |       --- |
 | GA       | `p`               |      0,5 |  620,2 | 1001,5 | 1227,7 |      5,7 % |     0,264 |
@@ -218,8 +218,8 @@ te veličine dobila slučajno.
 
 Ova analiza pokazuje da samo dva para postižu prag od 0,05:
 
-- simulirano kaljenje pri $T_0 = 5$ je lošije za 10,21 jedinicu u proseku, $p = 0{,}009$
-- genetski algoritam pri $p_m = 0{,}1$ je lošiji za 17,29 jedinica, $p = 0{,}017$
+- simulirano kaljenje pri $T_0 = 5$ je lošije za 9,53 jedinice u proseku, $p = 0{,}009$
+- genetski algoritam pri $p_m = 0{,}1$ je lošiji za 16,13 jedinica, $p = 0{,}017$
 
 Sve ostale vrednosti, uključujući i one koje u tabeli izgledaju bolje od podrazumevanih, ne razlikuju se značajno. Konkretno, $T_0 = 100$ i $p_m = 0{,}5$ imaju naizgled niže odstupanje, ali su im $p$ vrednosti 0,926 i 0,264, pa se ta prednost ne može tvrditi.
 

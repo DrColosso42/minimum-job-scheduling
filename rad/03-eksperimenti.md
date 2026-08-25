@@ -313,8 +313,9 @@ na 6,7^[Date su prosečne vrednosti broja kandidata] kod instance `ft06`, sa 450
 Uprkos tome, pri izjednačenom broju poziva funkcije dekodiranja ta okolina daje **lošiji** rezultat od proste zamene dva elementa. Kod višestruko pokrenute lokalne pretrage na instanci `ft10` prosek je 1063,6 naspram 1051,8, a kod simuliranog kaljenja 1000,5
 naspram 956,7. Na instanci `ft20` razlika je najizraženija: 1223,7 naspram 1180,7.
 
-Postoje dva glavna uzroka zbog čega se pojavljuju ovakvi rezultati. Prvi razlog nalazi se upravo u dizajnu samog eksperimenta, odnosno u odluci da upoređivanje metoda normalizujemo na osnovu budžeta. Naime, iako se pokazalo efektno pri usporedbi metoda optimizacije u njihovom osnovnom obliku, pri pronalaženju $N_1$ poziva se funkcija dekodiranja, što samo po sebi umanjuje budžet.
-Drugo, uža okolina daje plići pojam lokalnog optimuma, što navodi pretragu na ranije zaustavljanje i to na lošijem mestu. Kod simuliranog kaljenja postoji i treći razlog. Naime, ograničavanjem izbora na
+Nameće se očigledan razlog za loše performanse $N_1$ okolina, koji se ogleda u tome što $N_1$ okoline zahtevaju poziv funkcije dekodiranja za sopstveno formiranje. Naš eksperiment konstruisan je tako da direktno zavisi od broja poziva ove funkcije. Ipak, ispostavlja se da ovo nije razlog, s obzirom da su u radu $N_1$ okoline dobije zasebnu funkciju dekodiranja, čiji broj pozivanja nismo uzimali u obzir pri evaluaciji rešenja.
+
+Uzroci su druge prirode. Prvi je taj što uža okolina daje plići pojam lokalnog optimuma, što navodi pretragu na ranije zaustavljanje i to na lošijem mestu. Kod simuliranog kaljenja postoji i drugi razlog. Naime, ograničavanjem izbora na
 kritični put oduzimaju se neutralni potezi, koji ne menjaju vrednost funkcije cilja odmah, ali otvaraju put kasnijim poboljšanjima.
 
 U literaturi $N_1$ i srodne okoline daju vrlo dobre rezultate, ali u sprezi sa tabu listom i inkrementalnom procenom vrednosti [@nowicki1996], čime se oba navedena nedostatka uklanjaju. Bez tih dopuna, sama okolina ispostavlja se nedovoljnom.

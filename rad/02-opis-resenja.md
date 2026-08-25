@@ -62,7 +62,7 @@ Prostor pretrage je, dakle, veći od prostora rešenja. Ipak, u literaturi je ce
 
 ## Dekoder
 
-Glavna mana Birvirtove notacije jeste što niz oznaka ne nosi eksplicitno informaciju o rasporedu poslova na mašini. Ona jeste sadržana unutar njega, ali je potrebno niz adekvatno transformisati ba bismo do nje došli. Postupak kojim od niza dolazimo do rasporeda, odnosno svakoj operaciji dodeljuje trenutak početka, nazivamo _dekoderom_.
+Glavna mana Birvirtove notacije jeste što niz oznaka ne nosi eksplicitno informaciju o rasporedu poslova na mašini. Ona jeste sadržana unutar njega, ali je potrebno niz adekvatno transformisati da bismo do nje došli. Postupak kojim od niza dolazimo do rasporeda, odnosno svakoj operaciji dodeljuje trenutak početka, nazivamo _dekoderom_.
 
 ### Postupak
 

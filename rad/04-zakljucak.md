@@ -23,7 +23,7 @@ Implementirane metode **nisu osetljive na vrednosti parametara u širokom opsegu
 
 Razvijene metode **ne nadmašuju rezultate iz literature**. Objavljene vrednosti za najteže instance dostignute su postupcima koji se pomažu informacijama o samoj strukturi problema, pre svega kroz korišćenje okolina nad kritičnim putem u kombinaciji sa tabu pretragom [@nowicki1996], dok su metode razvijene ovde opšte namene.
 
-Poređenje je vođeno brojem poziva funkcije cilja. To merilo je nezavisno od mašine i implementacije, ali daje prednost metodama sa jeftinijim korakom. Posmatrajući dobijene rezultate možemo jasno videti uticaj ove odluke (sekcija 3.7).
+Poređenje je vođeno brojem poziva funkcije cilja. To merilo je nezavisno od mašine i implementacije, ali daje prednost metodama sa jeftinijim korakom. Posmatrajući dobijene rezultate možemo jasno videti uticaj ove odluke (odeljak 3.8.2).
 
 Izbor parametara metoda nije sistemski optimizovan. Vrednosti početne i krajnje temperature, veličine populacije i verovatnoće mutacije usvojene su na osnovu preporuka iz literature i nekoliko probnih pokretanja. Naknadna analiza pokazala je da se nijedna od njih ne nalazi u području u kome metoda otkazuje. Treba imati u vidu da naša analiza ima svoja ograničenja. Najpre, menjan je po jedan parametar u isto vreme, pa uzajamna dejstva nisu ispitana, a merenje je izvedeno na tri instance uz deset pokretanja po vrednosti. Manje razlike time ostaju izvan domašaja korišćenog testa.
 

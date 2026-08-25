@@ -213,8 +213,9 @@ Upoređivanje proseka ovde nije nužno dovoljno za pouzdanu analizu. Razlike izm
 standardna devijacija je kroz ponavljanja oko 30, što nam govori da neki rezultati mogu biti postignuti samo usled slučajnosti.
 
 Srećom, pokretanja se mogu porediti i u parovima, zbog korišćenja iste vrednosti generatora. Formirano je trideset razlika
-u odnosu na podrazumevanu. Dobijeni rezultat jeste tabela u kojoj parametar $p$ govori kolika je verovatnoća da bi se razlika
-te veličine dobila slučajno.
+u odnosu na podrazumevanu, po deset za svaku od tri instance.
+
+Sproveden je standardni **permutacioni test znakova razlika**, sa 200 000 uzoraka. Ukratko, postupak polazi od hipoteze da parametar ne utiče na rezultat pokretanja metode. Pod tom pretpostavkom, važi da je znak razlike mogao da bude i suprotan. Nasumičnom permutacijom znakova razlika dobije se raspodela proseka koji su nastali pod tom pretpostavkom. Na kraju, vrednost $p$ predstavlja kvantil te raspodele proseka za sve proseke koji su udaljeni od nule koliko i stvarni, izmereni prosek.
 
 Ova analiza pokazuje da samo dva para postižu prag od 0,05:
 
@@ -225,7 +226,7 @@ Sve ostale vrednosti, uključujući i one koje u tabeli izgledaju bolje od podra
 
 ### Tumačenje
 
-Rezultat analize govori nam da na su izabrane metode gotovo **neosetljive na izbor parametara u širokom opsegu**, ali postoji
+Rezultat analize govori nam da su izabrane metode gotovo **neosetljive na izbor parametara u širokom opsegu**, ali postoji
 donji prag ispod koga metode postaju značajno nepouzdanije.
 
 Oba statistički značajna slučaja su upravo slučajevi donje granice i oba imaju jasno objašnjenje. Pri $T_0 = 5$ je verovatnoća prihvatanja lošijeg rešenja izuzetno mala, pa kaljenje ne može da pobegne lokalnim optimumima. Slično, pri $p_m = 0{,}1$ mutacija ima nedovoljno visoku šansu dešavanja pa raznovrsnost populacije ostaje ograničena početnom populacijom i algoritam daje loše rezultate.
@@ -239,7 +240,7 @@ u prihvatljivom opsegu, pa zaključci iz prethodnog odeljka ne zavise od izbora.
 
 Radi provere ispravnosti razvijenih metoda i utvrđivanja stvarnih optimuma, problem je rešen i egzaktno, celobrojnim linearnim programiranjem. Korišćena je disjunktivna
 formulacija [@manne1960], opisana u odeljku o celobrojnom modelu, dok je model rešen putem
-rešavača CPLEX. Pritom, svakoo pokretanje vremenski je unapred ograničeno na jedan sat i zahtevana je stroga optimalnost. Rezultati egzaktnog rešavanja dati su u sledećoj tabeli:
+rešavača CPLEX. Pritom, svako pokretanje vremenski je unapred ograničeno na jedan sat i zahtevana je stroga optimalnost. Rezultati egzaktnog rešavanja dati su u sledećoj tabeli:
 
 | instanca | promenljivih | ograničenja | rešenje | donja granica | odstupanje | vreme [s] |
 | -------- | -----------: | ----------: | ------: | ------------: | ---------: | --------: |
@@ -270,7 +271,7 @@ simulirano kaljenje je u istom okruženju pronašlo rešenje vrednosti 1165 za n
 sekundi. Rezultat je da je primenom metode optimizacije putem metaheuristika pronađeno **bolje rešenje u vremenu manjem za tri reda veličine**.
 
 Pored toga, jednostavna donja granica opisana u odeljku o donjim granicama iznosi za `ft20` **1119**, što je znatno jače ograničenje od granice 657 koju je rešavač dokazao za sat
-vremena. Kombinovanjem te granice sa najboljim pronađenim rešenjem dobija se interval $[1119, 1165]$, odnosno raskol od 4,1% umesto 44,37%.
+vremena. Kombinovanjem te granice sa najboljim pronađenim rešenjem dobija se interval $[1119, 1165]$, odnosno odstupanje od 4,1% umesto 44,37%.
 
 ## Poređenje sa rezultatima iz literature
 
@@ -301,7 +302,7 @@ raspored često mora dobiti u kratkom roku, odstupanje ispod jednog procenta uz 
 
 ## Diskusija
 
-Prilokom razvoja i merenja uočeno je nekoliko pojava koje se ne vide iz zbirnih tabela,
+Prilikom razvoja i merenja uočeno je nekoliko pojava koje se ne vide iz zbirnih tabela,
 a koje su bitno uticale na konačan izbor metoda i njihovih parametara.
 
 ### Uža okolina ne donosi bolji rezultat
@@ -313,10 +314,12 @@ na 6,7^[Date su prosečne vrednosti broja kandidata] kod instance `ft06`, sa 450
 Uprkos tome, pri izjednačenom broju poziva funkcije dekodiranja ta okolina daje **lošiji** rezultat od proste zamene dva elementa. Kod višestruko pokrenute lokalne pretrage na instanci `ft10` prosek je 1063,6 naspram 1051,8, a kod simuliranog kaljenja 1000,5
 naspram 956,7. Na instanci `ft20` razlika je najizraženija: 1223,7 naspram 1180,7.
 
-Nameće se očigledan razlog za loše performanse $N_1$ okolina, koji se ogleda u tome što $N_1$ okoline zahtevaju poziv funkcije dekodiranja za sopstveno formiranje. Naš eksperiment konstruisan je tako da direktno zavisi od broja poziva ove funkcije. Ipak, ispostavlja se da ovo nije razlog, s obzirom da su u radu $N_1$ okoline dobije zasebnu funkciju dekodiranja, čiji broj pozivanja nismo uzimali u obzir pri evaluaciji rešenja.
+Nameće se očigledan razlog za loše performanse $N_1$ okolina, koji se ogleda u tome što $N_1$ okoline zahtevaju poziv funkcije dekodiranja za sopstveno formiranje. Naš eksperiment konstruisan je tako da direktno zavisi od broja poziva ove funkcije. Ipak, ispostavlja se da ovo nije razlog, s obzirom da su u radu $N_1$ okoline dobile zasebnu funkciju dekodiranja, čiji broj pozivanja nismo uzimali u obzir pri evaluaciji rešenja.
 
 Uzroci su druge prirode. Prvi je taj što uža okolina daje plići pojam lokalnog optimuma, što navodi pretragu na ranije zaustavljanje i to na lošijem mestu. Kod simuliranog kaljenja postoji i drugi razlog. Naime, ograničavanjem izbora na
 kritični put oduzimaju se neutralni potezi, koji ne menjaju vrednost funkcije cilja odmah, ali otvaraju put kasnijim poboljšanjima.
+
+Treći uzrok nalazi se u samoj implementaciji. Kako je navedeno ranije, implementacija prikazana u kodu je samo _aproksimacija_ $N_1$ okoline, s obzirom da se menjaju dve operacije u nizu sa ponavljanjem umesto nužno na mašini. Ovde prikazana implementacija može da dovede do neugodnih bočnih efekata, odnosno da promeni redosled poslovima kojima nismo želeli da promenimo redosled. Stoga, dobijeni rezultat treba uzeti sa dozom skepticizma.
 
 U literaturi $N_1$ i srodne okoline daju vrlo dobre rezultate, ali u sprezi sa tabu listom i inkrementalnom procenom vrednosti [@nowicki1996], čime se oba navedena nedostatka uklanjaju. Bez tih dopuna, sama okolina ispostavlja se nedovoljnom.
 

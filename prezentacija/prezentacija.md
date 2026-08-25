@@ -26,7 +26,7 @@ To je **niz oznaka poslova** od kojih se svaka ponavlja onoliko puta koliko posa
 0 1 1 2 0 1 2 0 2
 ```
 
-**Svaki takav niz opisuje izvodljiv raspored**.
+**Svaki ovakav niz opisuje izvodljiv raspored**.
 
 ## Dekoder
 
@@ -136,6 +136,20 @@ Traži dodatno dekodiranje po potezu, daje
 plići lokalni optimum, a kaljenju oduzima neutralne poteze.
 
 **Složenija metoda nije nužno bolja.** Promenljive okoline nadgrađuju lokalnu pretragu, ali gube od kaljenja.
+
+## Uticaj parametara {.shrink}
+
+Test parametara. Izveden po parametru, bez testiranja kombinacije parametara.
+
+Moguća su bolja poređenja uticaja parametara.
+
+| metoda   | parametar            | vrednost |    razlika |        $p$ |
+| -------- | -------------------- | -------: | ---------: | ---------: |
+| kaljenje | $T_0$                |        5 |  $+9{,}53$ |  **0,009** |
+| GA       | $p_m$                |      0,1 | $+16{,}13$ |  **0,017** |
+|          | ostalih 12 poređenja |          |            | $> 0{,}06$ |
+
+Parametri ne utiču previše na rezultate pri datom budžetu, osim **u slučaju granice upotrebljivosti**.
 
 ## Zaključak
 
